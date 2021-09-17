@@ -1,0 +1,35 @@
+ <HTML>
+<BODY>
+<script>
+var md = [{nome:"java", tipagem:"forte"}, {nome:"javascript", tipagem:"fraca"}, {nome:"C++", tipagem:"forte2"}];
+
+console.log(md);
+
+console.log(md[2].nome);
+var agora = new Date();
+console.log(agora);
+console.log("mes atual: " + (agora.getMonth()+1));
+console.log("dia atual: " + (agora.getDate())); // mostra dia do mês
+console.log("dia da semana: " + (agora.getDay())); // mostra dia da semana
+console.log("hora atual: " + (agora.getHours()));
+document.write("Veja no console dados da data/hora atual. Porém adianto a data: " + agora.getDate() + "/" + (agora.getMonth()+1));
+
+for (var i=2; i<= 5; i++) {
+    console.log("i=" + i);
+}; //Termina com ";"
+
+console.log("-------------------------------------");
+
+var j=0;
+while (j<6) {
+    console.log("j=" + j);
+    j++;
+}; //Termina com ";"
+
+
+</script>
+
+</BODY>
+</HTML>
+
+

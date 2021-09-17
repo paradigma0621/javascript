@@ -1,0 +1,46 @@
+<HTML>
+<BODY>
+<script>
+var minhaVar = 2;
+const minhaConst = 3;
+var ma = ["aa", "bb", "cc"];
+
+console.log("ola, vcs!" + ma);
+console.log("pessoa 3: " + ma[2]);
+
+ma.push("novoNome");
+console.log("adicionado novoNome. agora com: " + ma);
+
+ma.pop();
+ma.pop();
+console.log("removidos 2 elementos. agora com: " + ma);
+console.log("pois a lista tem tamanho: " + ma.length);
+
+ma.push("Alguém");
+ma.push("Sicrano");
+ma.push("Fulano");
+console.log("adicionados 3 nomes. Todo mundo: " + ma);
+console.log("Sicrano é o elemento: " + ma.indexOf("Sicrano"));
+ma.sort();
+console.log("lista depois de sort: " + ma);
+console.log("------------------------------- ");
+console.log("Aplicando um filter para cada elemento:");
+ma.filter((a) => console.log("cada um: " + a));
+console.log("------------------------------- ");
+console.log(ma);
+console.log("lista como string (não será mais um output como array como a linha de cima, mas sim string): " + ma.toString());
+
+
+console.log("index [3] do toString acima: " + ma.toString()[3]);
+
+console.log("lista depois de reverse: " + ma.reverse());
+console.log("lista com join(' - '):  " + ma.join(" - "));
+
+console.log("lista com slice(2,4):");
+console.log(ma.slice(2,4));
+</script>
+
+</BODY>
+</HTML>
+
+

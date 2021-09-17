@@ -1,0 +1,43 @@
+ <HTML>
+<BODY>
+<button type="button" onClick="btnClick()"> Abrir google nessa page </button>
+<p id="textoQueAge" onClick="txtClick()"> clique em mim para abrir gmail em outra janela </p>
+<h1 id="txtSobre" onmouseover="txtOver()"> passe o mouse aqui em cima </h1>
+<h2 onmouseover="txtOutroJeitoQueNaoPassandoId(this)"> passe o mouse aqui em cima</h2>  <!-- //não precisa atribuir id -->
+<select onchange="selecionou(this)">
+    <option value="Opção 1"> Valor 1</option>
+    <option value="Opção 2"> Valor 2</option>
+    <option value="Opção 3"> Valor 3</option>
+</select>
+<script>
+function minhaFuncao(valor1, valor2) { //não tem referência dos tipos dos argumentos e nem tipo de retorno
+return valor1*valor2;
+}
+
+function btnClick() {
+window.location.href = "http://www.google.com.br"; //abre na mesma janela atual (AP: pode abrir arquivos tb)
+console.log("j="+minhaFuncao(22,2));
+}
+
+function txtClick() {
+window.open("http://www.gmail.com.br"); //abre em outra janela (AP: pode abrir arquivos tb)
+}
+
+function txtOver() {
+document.getElementById("txtSobre").innerHTML = "texto sobre";
+}
+
+function txtOutroJeitoQueNaoPassandoId(elemento) {
+elemento.innerHTML = "o mouse passou em cima desse texto"; //altera conteúdo mesmo sem precisar do id do elemento do html
+}
+
+function selecionou(elemento) {
+console.log(elemento.value);
+}
+
+</script>
+
+</BODY>
+</HTML>
+
+
