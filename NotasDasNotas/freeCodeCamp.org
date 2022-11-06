@@ -1,0 +1,2052 @@
+Esse material pode ser melhor visualizado pelo módulo ORG do editor de texto Emacs. Também pode ser bem visualizado diretamente no site do GitHub.
+continuar em: "Reset an Inherited Constructor Property"
+
+Notas pessoais de Javascript obtidas do material disponível em: https://www.freecodecamp.org/
+* variaveis
+JavaScript provides eight different data types which are undefined, null, boolean, string, symbol, bigint, number, and object.
+
+
+
+var ourName;
+
+creates a variable called ourName. In JavaScript we end statements with semicolons. Variable names can be made up of numbers, letters, and $ or _, but may not contain spaces or start with a number.
+
+** let
+Explore Differences Between the var and let Keywords
+
+One of the biggest problems with declaring variables with the var keyword is that you can easily overwrite variable declarations:
+
+var camper = "James";
+var camper = "David";
+console.log(camper);
+
+In the code above, the camper variable is originally declared as James, and is then overridden to be David. The console then displays the string David.
+
+In a small application, you might not run into this type of problem. But as your codebase becomes larger, you might accidentally overwrite a variable that you did not intend to. Because this behavior does not throw an error, searching for and fixing bugs becomes more difficult.
+
+A keyword called let was introduced in ES6, a major update to JavaScript, to solve this potential issue with the var keyword. You'll learn about other ES6 features in later challenges.
+
+If you replace var with let in the code above, it results in an error:
+
+let camper = "James";
+let camper = "David";
+
+The error can be seen in your browser console.
+
+So unlike var, when you use let, a variable with the same name can only be declared once.
+
+** const
+
+The keyword let is not the only new way to declare variables. In ES6, you can also declare variables using the const keyword.
+
+const has all the awesome features that let has, with the added bonus that variables declared using const are read-only. They are a constant value, which means that once a variable is assigned with const, it cannot be reassigned:
+
+const FAV_PET = "Cats";
+FAV_PET = "Dogs";
+
+The console will display an error due to reassigning the value of FAV_PET.
+
+You should always name variables you don't want to reassign using the const keyword. This helps when you accidentally attempt to reassign a variable that is meant to stay constant.
+
+*** Mutate an Array Declared with const
+
+If you are unfamiliar with const, check out this challenge about the const keyword.
+
+The const declaration has many use cases in modern JavaScript.
+
+Some developers prefer to assign all their variables using const by default, unless they know they will need to reassign the value. Only in that case, they use let.
+
+However, it is important to understand that objects (including arrays and functions) assigned to a variable using const are still mutable. Using the const declaration only prevents reassignment of the variable identifier.
+
+const s = [5, 6, 7];
+s = [1, 2, 3];
+s[2] = 45;
+console.log(s);
+
+s = [1, 2, 3] will result in an error. After commenting out that line, the console.log will display the value [5, 6, 45].
+
+As you can see, you can mutate the object [5, 6, 7] itself and the variable s will still point to the altered array [5, 6, 45]. Like all arrays, the array elements in s are mutable, but because const was used, you cannot use the variable identifier s to point to a different array using the assignment operator.
+
+** Global Scope
+Global Scope and Functions
+
+In JavaScript, scope refers to the visibility of variables. Variables which are defined outside of a function block have Global scope. This means, they can be seen everywhere in your JavaScript code.
+
+Variables which are declared without the let or const keywords are automatically created in the global scope. This can create unintended consequences elsewhere in your code or when running a function again. You should always declare your variables with let or const.
+
+*** exemplo de código
+		
+let thisIsGlobal = 5; // essa será global
+const otherGlobal = 6;  // essa será global
+var otherGlobalToo = 7;  // essa será global
+
+function fun1() {
+   oopsGlobal=777; //essa será global
+}
+
+function fun2() {
+	var x=111; //essa será apenas local
+  console.log('x: '+ x + ' - thisIsGlobal: ' + thisIsGlobal + ' otherGlobal: ' + otherGlobal + ' - otherGlobalToo: ' + otherGlobalToo );
+}
+
+** Strings
+*** atribuindo variável com conteúdo com "
+const sampleStr = "Alan said, \"Peter is learning JavaScript\".";
+*** " e ' 
+const goodStr = 'Jake asks Finn, "Hey, let\'s go on an adventure?"';  //essa mostra ok
+const badStr = 'Finn responds, "Let's go!"';   //essa dá erro
+
+Here badStr will throw an error.
+
+In the goodStr above, you can use both quotes safely by using the backslash \ as an escape character.
+
+*** Escape Sequences in Strings
+
+Quotes are not the only characters that can be escaped inside a string. There are two reasons to use escaping characters:
+
+    To allow you to use characters you may not otherwise be able to type out, such as a newline.
+    To allow you to represent multiple quotes in a string without JavaScript misinterpreting what you mean.
+
+We learned this in the previous challenge.
+Code	Output
+\'	single quote
+\"	double quote
+\\	backslash
+\n	newline
+\t	tab
+\r	carriage return
+\b	word boundary
+\f	form feed
+*** .length
+You can find the length of a String value by writing .length after the string variable or string literal.
+
+console.log("Alan Peter".length);
+
+The value 10 would be displayed in the console. Note that the space character between "Alan" and "Peter" is also counted.
+*** Use Bracket Notation to Find the First Character in a String
+
+Bracket notation is a way to get a character at a specific index within a string.
+
+Most modern programming languages, like JavaScript, don't start counting at 1 like humans do. They start at 0. This is referred to as Zero-based indexing.
+
+For example, the character at index 0 in the word Charles is C. So if const firstName = "Charles", you can get the value of the first letter of the string by using firstName[0].
+
+Example:
+
+const firstName = "Charles";
+const firstLetter = firstName[0];
+
+firstLetter would have a value of the string C.
+*** Understand String Immutability
+
+In JavaScript, String values are immutable, which means that they cannot be altered once created.
+
+For example, the following code will produce an error because the letter B in the string Bob cannot be changed to the letter J:
+
+let myStr = "Bob";
+myStr[0] = "J";
+
+Note that this does not mean that myStr could not be re-assigned. The only way to change myStr would be to assign it with a new value, like this:
+
+let myStr = "Bob";
+myStr = "Job";
+
+*** Create Strings using Template Literals
+
+A new feature of ES6 is the template literal. This is a special type of string that makes creating complex strings easier.
+
+Template literals allow you to create multi-line strings and to use string interpolation features to create strings.
+
+Consider the code below:
+
+const person = {
+  name: "Zodiac Hasbro",
+  age: 56
+};
+
+const greeting = `Hello, my name is ${person.name}!
+I am ${person.age} years old.`;
+
+console.log(greeting);
+
+The console will display the strings Hello, my name is Zodiac Hasbro! and I am 56 years old..
+
+A lot of things happened there. Firstly, the example uses backticks (`), not quotes (' or "), to wrap the string. Secondly, notice that the string is multi-line, both in the code and the output. This saves inserting \n within strings. The ${variable} syntax used above is a placeholder. Basically, you won't have to use concatenation with the + operator anymore. To add variables to strings, you just drop the variable in a template string and wrap it with ${ and }. Similarly, you can include other expressions in your string literal, for example ${a + b}. This new way of creating strings gives you more flexibility to create robust strings.
+**** challenge
+Use template literal syntax with backticks to create an array of list element (li) strings. Each list element's text should be one of the array elements from the failure property on the result object and have a class attribute with the value text-warning. The makeList function should return the array of list item strings.
+
+Use an iterator method (any kind of loop) to get the desired output (shown below).
+
+[
+  '<li class="text-warning">no-var</li>',
+  '<li class="text-warning">var-on-top</li>',
+  '<li class="text-warning">linebreak</li>'
+]
+***** solution
+#+BEGIN_SRC javascript
+const result = {
+  success: ["max-length", "no-amd", "prefer-arrow-functions"],
+  failure: ["no-var", "var-on-top", "linebreak"],
+  skipped: ["no-extra-semi", "no-dup-keys"]
+};
+function makeList(arr) {
+  // Only change code below this line
+  var failureItems=[];
+  for (let i=0; i<arr.length; i++) {
+     failureItems.push(`<li class="text-warning">${arr[i]}</li>`);
+  // Only change code above this line
+  }
+  return failureItems;
+  //failureItems;
+}
+
+const failuresList = makeList(result.failure);
+console.log(failuresList);
+#+END_SRC
+
+** Arrays
+Store Multiple Values in one Variable using JavaScript Arrays
+
+With JavaScript array variables, we can store several pieces of data in one place.
+
+You start an array declaration with an opening square bracket, end it with a closing square bracket, and put a comma between each entry, like this:
+
+const sandwich = ["peanut butter", "jelly", "bread"];
+
+*** Nest one Array within Another Array
+
+You can also nest arrays within other arrays, like below:
+
+const teams = [ ["Bulls", 23], ["White Sox", 45]];
+
+This is also called a multi-dimensional array.
+*** Modify Array Data With Indexes
+
+Unlike strings, the entries of arrays are mutable and can be changed freely, even if the array was declared with const.
+
+Example
+
+const ourArray = [50, 40, 30];
+ourArray[0] = 15;
+
+ourArray now has the value [15, 40, 30].
+
+Note: There shouldn't be any spaces between the array name and the square brackets, like array [0]. Although JavaScript is able to process this correctly, this may confuse other programmers reading your code.
+*** push()
+
+An easy way to append data to the end of an array is via the push() function.
+
+.push() takes one or more parameters and "pushes" them onto the end of the array.
+
+Examples:
+
+const arr1 = [1, 2, 3];
+arr1.push(4);
+
+const arr2 = ["Stimpson", "J", "cat"];
+arr2.push(["happy", "joy"]);
+
+arr1 now has the value [1, 2, 3, 4] and arr2 has the value ["Stimpson", "J", "cat", ["happy", "joy"]].
+*** pop()
+Manipulate Arrays With pop()
+
+Another way to change the data in an array is with the .pop() function.
+
+.pop() is used to pop a value off of the end of an array. We can store this popped off value by assigning it to a variable. In other words, .pop() removes the last element from an array and returns that element.
+
+Any type of entry can be popped off of an array - numbers, strings, even nested arrays.
+
+const threeArr = [1, 4, 6];
+const oneDown = threeArr.pop();
+console.log(oneDown);
+console.log(threeArr);
+
+The first console.log will display the value 6, and the second will display the value [1, 4].
+*** shift()
+Manipulate Arrays With shift()
+
+pop() always removes the last element of an array. What if you want to remove the first?
+
+That's where .shift() comes in. It works just like .pop(), except it removes the first element instead of the last.
+
+Example:
+
+const ourArray = ["Stimpson", "J", ["cat"]];
+const removedFromOurArray = ourArray.shift();
+
+removedFromOurArray would have a value of the string Stimpson, and ourArray would have ["J", ["cat"]].
+*** unshift()
+Manipulate Arrays With unshift()
+Not only can you shift elements off of the beginning of an array, you can also unshift elements to the beginning of an array i.e. add elements in front of the array.
+
+.unshift() works exactly like .push(), but instead of adding the element at the end of the array, unshift() adds the element at the beginning of the array.
+
+Example:
+
+const ourArray = ["Stimpson", "J", "cat"];
+ourArray.shift();
+ourArray.unshift("Happy");
+
+After the shift, ourArray would have the value ["J", "cat"]. After the unshift, ourArray would have the value ["Happy", "J", "cat"].
+*** Accessing Nested Arrays
+
+As we have seen in earlier examples, objects can contain both nested objects and nested arrays. Similar to accessing nested objects, array bracket notation can be chained to access nested arrays.
+
+Here is an example of how to access a nested array:
+
+const ourPets = [
+  {
+    animalType: "cat",
+    names: [
+      "Meowzer",
+      "Fluffy",
+      "Kit-Cat"
+    ]
+  },
+  {
+    animalType: "dog",
+    names: [
+      "Spot",
+      "Bowser",
+      "Frankie"
+    ]
+  }
+];
+
+ourPets[0].names[1];
+ourPets[1].names[0];
+
+ourPets[0].names[1] would be the string Fluffy, and ourPets[1].names[0] would be the string Spot.
+
+*** Iterate Through an Array with a For Loop
+
+A common task in JavaScript is to iterate through the contents of an array. One way to do that is with a for loop. This code will output each element of the array arr to the console:
+
+const arr = [10, 9, 8, 7, 6];
+
+for (let i = 0; i < arr.length; i++) {
+   console.log(arr[i]);
+}
+
+*** Nesting For Loops
+
+If you have a multi-dimensional array, you can use the same logic as the prior waypoint to loop through both the array and any sub-arrays. Here is an example:
+
+const arr = [
+  [1, 2], [3, 4], [5, 6]
+];
+
+for (let i = 0; i < arr.length; i++) {
+  for (let j = 0; j < arr[i].length; j++) {
+    console.log(arr[i][j]);
+  }
+}
+
+This outputs each sub-element in arr one at a time. Note that for the inner loop, we are checking the .length of arr[i], since arr[i] is itself an array.
+
+*** Use the Spread Operator to Evaluate Arrays In-Place
+
+ES6 introduces the spread operator, which allows us to expand arrays and other expressions in places where multiple parameters or elements are expected.
+
+The ES5 code below uses apply() to compute the maximum value in an array:
+
+var arr = [6, 89, 3, 45];
+var maximus = Math.max.apply(null, arr);
+
+maximus would have a value of 89.
+
+We had to use Math.max.apply(null, arr) because Math.max(arr) returns NaN. Math.max() expects comma-separated arguments, but not an array. The spread operator makes this syntax much better to read and maintain.
+
+const arr = [6, 89, 3, 45];
+const maximus = Math.max(...arr);
+
+maximus would have a value of 89.
+
+...arr returns an unpacked array. In other words, it spreads the array. However, the spread operator only works in-place, like in an argument to a function or in an array literal. The following code will not work:
+
+const spreaded = ...arr;
+
+**** chanllenge
+Copy all contents of arr1 into another array arr2 using the spread operator.
+const arr1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY'];
+let arr2;
+
+arr2 = //change this line
+***** solution
+const arr1 = ['JAN', 'FEB', 'MAR', 'APR', 'MAY'];
+let arr2;
+
+arr2 = [...arr1];
+
+** Global vs. Local Scope in Functions
+*** variables with same name
+It is possible to have both local and global variables with the same name. When you do this, the local variable takes precedence over the global variable.
+
+In this example:
+
+const someVar = "Hat";
+
+function myFun() {
+  const someVar = "Head";
+  return someVar;
+}
+
+The function myFun will return the string Head because the local version of the variable is present.
+
+*** Compare Scopes of the var and let Keywords
+If you are unfamiliar with let, check out this challenge about the difference between let and var.
+
+When you declare a variable with the var keyword, it is declared globally, or locally if declared inside a function.
+
+The let keyword behaves similarly, but with some extra features. When you declare a variable with the let keyword inside a block, statement, or expression, its scope is limited to that block, statement, or expression.
+
+**** example 1
+For example:
+
+var numArray = [];
+for (var i = 0; i < 3; i++) {
+  numArray.push(i);
+}
+console.log(numArray);
+console.log(i);
+
+Here the console will display the values [0, 1, 2] and 3.
+
+With the var keyword, i is declared globally. So when i++ is executed, it updates the global variable. 
+**** Example 2
+This code above is similar to the following:
+
+var numArray = [];
+var i;
+for (i = 0; i < 3; i++) {
+  numArray.push(i);
+}
+console.log(numArray);
+console.log(i);
+
+Here the console will display the values [0, 1, 2] and 3.
+
+**** Example 3
+This behavior above will cause problems if you were to create a function and store it for later use inside a for loop that uses the i variable. This is because the stored function will always refer to the value of the updated global i variable.
+
+var printNumTwo;
+for (var i = 0; i < 3; i++) {
+  if (i === 2) {
+    printNumTwo = function() {
+      return i;
+    };
+  }
+}
+console.log(printNumTwo());
+
+Here the console will display the value 3.
+
+As you can see, printNumTwo() prints 3 and not 2. This is because the value assigned to i was updated and the printNumTwo() returns the global i and not the value i had when the function was created in the for loop. 
+**** Example 4
+The let keyword does not follow this behavior:
+
+let printNumTwo;
+for (let i = 0; i < 3; i++) {
+  if (i === 2) {
+    printNumTwo = function() {
+      return i;
+    };
+  }
+}
+console.log(printNumTwo());
+console.log(i);
+
+Here the console will display the value 2, and an error that i is not defined.
+
+i is not defined because it was not declared in the global scope. It is only declared within the for loop statement. printNumTwo() returned the correct value because three different i variables with unique values (0, 1, and 2) were created by the let keyword within the loop statement.
+
+When programming a function similar it is often better to use different variable names to avoid confusion.
+
+
+* Functions 
+** general
+In JavaScript, we can divide up our code into reusable parts called functions.
+
+Here's an example of a function:
+
+function functionName() {
+  console.log("Hello World");
+}
+
+You can call or invoke this function by using its name followed by parentheses, like this: functionName(); Each time the function is called it will print out the message Hello World on the dev console. All of the code between the curly braces will be executed every time the function is called.
+** Understanding Undefined Value returned from a Function
+
+A function can include the return statement but it does not have to. In the case that the function doesn't have a return statement, when you call it, the function processes the inner code but the returned value is undefined.
+
+Example
+
+let sum = 0;
+
+function addSum(num) {
+  sum = sum + num;
+}
+
+addSum(3);
+
+addSum is a function without a return statement. The function will change the global sum variable but the returned value of the function is undefined.
+** Arrow Funcions
+*** Use Arrow Functions to Write Concise Anonymous Functions
+
+In JavaScript, we often don't need to name our functions, especially when passing a function as an argument to another function. Instead, we create inline functions. We don't need to name these functions because we do not reuse them anywhere else.
+
+To achieve this, we often use the following syntax:
+
+const myFunc = function() {
+  const myVar = "value";
+  return myVar;
+}
+
+ES6 provides us with the syntactic sugar to not have to write anonymous functions this way. Instead, you can use arrow function syntax:
+
+const myFunc = () => {
+  const myVar = "value";
+  return myVar;
+}
+
+When there is no function body, and only a return value, arrow function syntax allows you to omit the keyword return as well as the brackets surrounding the code. This helps simplify smaller functions into one-line statements:
+
+const myFunc = () => "value";
+
+This code will still return the string value by default.
+
+*** Write Arrow Functions with Parameters
+
+Just like a regular function, you can pass arguments into an arrow function.
+
+const doubler = (item) => item * 2;
+doubler(4);
+
+doubler(4) would return the value 8.
+
+If an arrow function has a single parameter, the parentheses enclosing the parameter may be omitted.
+
+const doubler = item => item * 2;
+
+It is possible to pass more than one argument into an arrow function.
+
+const multiplier = (item, multi) => item * multi;
+multiplier(4, 2);
+
+multiplier(4, 2) would return the value 8.
+*** Set Default Parameters for Your Functions
+
+In order to help us create more flexible functions, ES6 introduces default parameters for functions.
+
+Check out this code:
+
+const greeting = (name = "Anonymous") => "Hello " + name;
+
+console.log(greeting("John"));
+console.log(greeting());
+
+The console will display the strings Hello John and Hello Anonymous.
+
+The default parameter kicks in when the argument is not specified (it is undefined). As you can see in the example above, the parameter name will receive its default value Anonymous when you do not provide a value for the parameter. You can add default values for as many parameters as you want.
+
+*** Use the Rest Parameter with Function Parameters
+
+In order to help us create more flexible functions, ES6 introduces the rest parameter for function parameters. With the rest parameter, you can create functions that take a variable number of arguments. These arguments are stored in an array that can be accessed later from inside the function.
+
+Check out this code:
+
+function howMany(...args) {
+  return "You have passed " + args.length + " arguments.";
+}
+console.log(howMany(0, 1, 2));
+console.log(howMany("string", null, [1, 2, 3], { }));
+
+The console would display the strings You have passed 3 arguments. and You have passed 4 arguments..
+
+The rest parameter eliminates the need to check the args array and allows us to apply map(), filter() and reduce() on the parameters array.
+**** challenge
+Modify the function sum using the rest parameter in such a way that the function sum is able to take any number of arguments and return their sum.
+***** inicial proposto
+const sum = (x, y, z) => {
+  const args = [x, y, z];
+  return args.reduce((a, b) => a + b, 0);
+}
+***** resolvido
+const sum = (...args) => args.reduce((a, b) => a + b, 0);
+console.log(sum()) // shows 10
+
+** Write Concise Declarative Functions with ES6
+
+When defining functions within objects in ES5, we have to use the keyword function as follows:
+
+const person = {
+  name: "Taylor",
+  sayHello: function() {
+    return `Hello! My name is ${this.name}.`;
+  }
+};
+
+With ES6, you can remove the function keyword and colon altogether when defining functions in objects. Here's an example of this syntax:
+
+const person = {
+  name: "Taylor",
+  sayHello() {
+    return `Hello! My name is ${this.name}.`;
+  }
+};
+*** challenge
+Refactor the function setGear inside the object bicycle to use the shorthand syntax described above.
+
+// Only change code below this line
+const bicycle = {
+  gear: 2,
+  setGear: function(newGear) {
+    this.gear = newGear;
+  }
+};
+// Only change code above this line
+bicycle.setGear(3);
+console.log(bicycle.gear);
+**** solution
+// Only change code below this line
+const bicycle = {
+  gear: 2,
+  setGear(gear) { 
+    this.gear = gear;
+    return this.gear; }
+  };
+// Only change code above this line
+bicycle.setGear(3);
+console.log(bicycle.gear);
+* Comparisons
+** Comparison with the Strict Equality Operator (===)
+
+Strict equality (===) is the counterpart to the equality operator (==). However, unlike the equality operator, which attempts to convert both values being compared to a common type, the strict equality operator does not perform a type conversion.
+
+If the values being compared have different types, they are considered unequal, and the strict equality operator will return false.
+
+Examples
+
+3 ===  3  // true
+3 === '3' // false
+** Comparison with the Strict Inequality Operator (!==)
+
+The strict inequality operator (!==) is the logical opposite of the strict equality operator. It means "Strictly Not Equal" and returns false where strict equality would return true and vice versa. The strict inequality operator will not convert data types.
+
+Examples
+
+3 !==  3  // false
+3 !== '3' // true
+4 !==  3  // true
+
+** Comparison with the Greater Than Operator
+
+The greater than operator (>) compares the values of two numbers. If the number to the left is greater than the number to the right, it returns true. Otherwise, it returns false.
+
+Like the equality operator, the greater than operator will convert data types of values while comparing.
+
+Examples
+
+5   >  3  // true
+7   > '3' // true
+2   >  3  // false
+'1' >  9  // false
+
+** Comparison with the Greater Than Or Equal To Operator
+
+The greater than or equal to operator (>=) compares the values of two numbers. If the number to the left is greater than or equal to the number to the right, it returns true. Otherwise, it returns false.
+
+Like the equality operator, the greater than or equal to operator will convert data types while comparing.
+
+Examples
+
+6   >=  6  // true
+7   >= '3' // true
+2   >=  3  // false
+'7' >=  9  // false
+
+** switch
+Selecting from Many Options with Switch Statements
+
+If you have many options to choose from, use a switch statement. A switch statement tests a value and can have many case statements which define various possible values. Statements are executed from the first matched case value until a break is encountered.
+
+Here is an example of a switch statement:
+
+switch (lowercaseLetter) {
+  case "a":
+    console.log("A");
+    break;
+  case "b":
+    console.log("B");
+    break;
+}
+
+case values are tested with strict equality (===). The break tells JavaScript to stop executing statements. If the break is omitted, the next statement will be executed.
+*** default option
+Adding a Default Option in Switch Statements
+
+In a switch statement you may not be able to specify all possible values as case statements. Instead, you can add the default statement which will be executed if no matching case statements are found. Think of it like the final else statement in an if/else chain.
+
+A default statement should be the last case.
+
+switch (num) {
+  case value1:
+    statement1;
+    break;
+  case value2:
+    statement2;
+    break;
+...
+  default:
+    defaultStatement;
+    break;
+}
+
+* typeof
+In JavaScript, you can determine the type of a variable or a value with the typeof operator, as follows:
+
+typeof 3
+typeof '3'
+
+typeof 3 returns the string number, and typeof '3' returns the string string.
+* Objects
+** example
+Build JavaScript Objects
+
+You may have heard the term object before.
+
+Objects are similar to arrays, except that instead of using indexes to access and modify their data, you access the data in objects through what are called properties.
+
+Objects are useful for storing data in a structured way, and can represent real world objects, like a cat.
+
+Here's a sample cat object:
+
+const cat = {
+  "name": "Whiskers",
+  "legs": 4,
+  "tails": 1,
+  "enemies": ["Water", "Dogs"]
+};
+
+In this example, all the properties are stored as strings, such as name, legs, and tails. However, you can also use numbers as properties. You can even omit the quotes for single-word string properties, as follows:
+
+const anotherObject = {
+  make: "Ford",
+  5: "five",
+  "model": "focus"
+};
+
+However, if your object has any non-string properties, JavaScript will automatically typecast them as strings.
+** Accessing Object Properties with Dot Notation
+
+There are two ways to access the properties of an object: dot notation (.) and bracket notation ([]), similar to an array.
+
+Dot notation is what you use when you know the name of the property you're trying to access ahead of time.
+
+Here is a sample of using dot notation (.) to read an object's property:
+
+const myObj = {
+  prop1: "val1",
+  prop2: "val2"
+};
+
+const prop1val = myObj.prop1;
+const prop2val = myObj.prop2;
+
+prop1val would have a value of the string val1, and prop2val would have a value of the string val2.
+** Accessing Object Properties with Bracket Notation
+
+The second way to access the properties of an object is bracket notation ([]). If the property of the object you are trying to access has a space in its name, you will need to use bracket notation.
+
+However, you can still use bracket notation on object properties without spaces.
+
+Here is a sample of using bracket notation to read an object's property:
+
+const myObj = {
+  "Space Name": "Kirk",
+  "More Space": "Spock",
+  "NoSpace": "USS Enterprise"
+};
+
+myObj["Space Name"];
+myObj['More Space'];
+myObj["NoSpace"];
+
+myObj["Space Name"] would be the string Kirk,
+myObj['More Space'] would be the string Spock, 
+myObj["NoSpace"] would be the string USS Enterprise.
+
+Note that property names with spaces in them must be in quotes (single or double).
+
+
+** Accessing Object Properties with Variables
+
+Another use of bracket notation on objects is to access a property which is stored as the value of a variable. This can be very useful for iterating through an object's properties or when accessing a lookup table.
+
+Here is an example of using a variable to access a property:
+
+const dogs = {
+  Fido: "Mutt",
+  Hunter: "Doberman",
+  Snoopie: "Beagle"
+};
+
+const myDog = "Hunter";
+const myBreed = dogs[myDog];
+console.log(myBreed);
+
+The string Doberman would be displayed in the console.
+
+Note that we do not use quotes around the variable name when using it to access the property because we are using the value of the variable, not the name.
+*** application example
+const testObj = {
+  12: "Namath",
+  16: "Montana",
+  19: "Unitas"
+};
+
+const playerNumber = 16;  
+const player = testObj[playerNumber]; 
+** Add New Properties to a JavaScript Object
+
+You can add new properties to existing JavaScript objects the same way you would modify them.
+
+Here's how we would add a bark property to ourDog:
+
+ourDog.bark = "bow-wow";
+
+or
+
+ourDog["bark"] = "bow-wow";
+
+Now when we evaluate ourDog.bark, we'll get his bark, bow-wow.
+
+Example:
+
+const ourDog = {
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"]
+};
+
+ourDog.bark = "bow-wow";
+
+Exercise:
+Add a bark property to myDog and set it to a dog sound, such as "woof". You may use either dot or bracket notation.
+** Delete Properties from a JavaScript Object
+
+We can also delete properties from objects like this:
+
+delete ourDog.bark;
+
+Example:
+
+const ourDog = {
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"],
+  "bark": "bow-wow"
+};
+
+delete ourDog.bark;
+
+After the last line shown above, ourDog looks like:
+
+{
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"]
+}
+
+Delete the tails property from myDog. You may use either dot or bracket notation.
+** Using Objects for Lookups
+
+Objects can be thought of as a key/value storage, like a dictionary. If you have tabular data, you can use an object to lookup values rather than a switch statement or an if/else chain. This is most useful when you know that your input data is limited to a certain range.
+
+Here is an example of a simple reverse alphabet lookup:
+
+const alpha = {
+  1:"Z",
+  2:"Y",
+  3:"X",
+  4:"W",
+  ...
+  24:"C",
+  25:"B",
+  26:"A"
+};
+
+const thirdLetter = alpha[2];
+const lastLetter = alpha[24];
+
+const value = 2;
+const valueLookup = alpha[value];
+
+thirdLetter is the string Y, lastLetter is the string C, and valueLookup is the string Y.
+** hasOwnProperty(): Testing Objects for Properties
+Sometimes it is useful to check if the property of a given object exists or not. We can use the .hasOwnProperty(propname) method of objects to determine if that object has the given property name. .hasOwnProperty() returns true or false if the property is found or not.
+
+Example
+
+const myObj = {
+  top: "hat",
+  bottom: "pants"
+};
+
+myObj.hasOwnProperty("top");
+myObj.hasOwnProperty("middle");
+
+The first hasOwnProperty returns true, while the second returns false.
+
+** Accessing Nested Objects
+The sub-properties of objects can be accessed by chaining together the dot or bracket notation.
+
+Here is a nested object:
+
+const ourStorage = {
+  "desk": {
+    "drawer": "stapler"
+  },
+  "cabinet": {
+    "top drawer": { 
+      "folder1": "a file",
+      "folder2": "secrets"
+    },
+    "bottom drawer": "soda"
+  }
+};
+
+ourStorage.cabinet["top drawer"].folder2;
+ourStorage.desk.drawer;
+
+ourStorage.cabinet["top drawer"].folder2 would be the string secrets, and ourStorage.desk.drawer would be the string stapler.
+
+** Prevent Object Mutation
+
+As seen in the previous challenge, const declaration alone doesn't really protect your data from mutation. To ensure your data doesn't change, JavaScript provides a function Object.freeze to prevent data mutation.
+
+Any attempt at changing the object will be rejected, with an error thrown if the script is running in strict mode.
+
+let obj = {
+  name:"FreeCodeCamp",
+  review:"Awesome"
+};
+Object.freeze(obj);
+obj.review = "bad";
+obj.newProp = "Test";
+console.log(obj); 
+
+The obj.review and obj.newProp assignments will result in errors, because our editor runs in strict mode by default, and the console will display the value { name: "FreeCodeCamp", review: "Awesome" }.
+*** challenge
+In this challenge you are going to use Object.freeze to prevent mathematical constants from changing. You need to freeze the MATH_CONSTANTS object so that no one is able to alter the value of PI, add, or delete properties.
+
+Final Result:
+function freezeObj() {
+  const MATH_CONSTANTS = {
+    PI: 3.14
+  };
+
+  // Only change code below this line
+  Object.freeze(MATH_CONSTANTS);
+  // Only change code above this line
+  try {
+    MATH_CONSTANTS.PI = 99;
+  } catch(ex) {
+    console.log(ex);
+  }
+  return MATH_CONSTANTS.PI;
+}
+const PI = freezeObj();
+console.log(PI);
+
+** Write Concise Object Literal Declarations Using Object Property Shorthand
+
+ES6 adds some nice support for easily defining object literals.
+
+Consider the following code:
+
+const getMousePosition = (x, y) => ({
+  x: x,
+  y: y
+});
+
+getMousePosition is a simple function that returns an object containing two properties. ES6 provides the syntactic sugar to eliminate the redundancy of having to write x: x. You can simply write x once, and it will be converted to x: x (or something equivalent) under the hood. Here is the same function from above rewritten to use this new syntax:
+
+const getMousePosition = (x, y) => ({ x, y });
+*** challenge
+Use object property shorthand with object literals to create and return an object with name, age and gender properties.
+
+const createPerson = (name, age, gender) => {
+  // Only change code below this line
+  return {
+    name: name,
+    age: age,
+    gender: gender
+  };
+  // Only change code above this line
+};
+
+**** solution
+const createPerson = (name, age, gender) => {
+  // Only change code below this line
+  return ({ name,  age, gender });
+  // Only change code above this line
+};
+* Destructuring
+** Use Destructuring Assignment to Extract Values from Objects
+
+Destructuring assignment is special syntax introduced in ES6, for neatly assigning values taken directly from an object.
+
+Consider the following ES5 code:
+
+const user = { name: 'John Doe', age: 34 };
+
+const name = user.name;
+const age = user.age;
+
+name would have a value of the string John Doe, and age would have the number 34.
+
+Here's an equivalent assignment statement using the ES6 destructuring syntax:
+
+const { name, age } = user;
+
+Again, name would have a value of the string John Doe, and age would have the number 34.
+
+Here, the name and age variables will be created and assigned the values of their respective values from the user object. You can see how much cleaner this is.
+
+You can extract as many or few values from the object as you want.
+	
+*** challenge
+Replace the two assignments with an equivalent destructuring assignment. It should still assign the variables today and tomorrow the values of today and tomorrow from the HIGH_TEMPERATURES object.
+
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+// Only change code below this line
+
+const today = HIGH_TEMPERATURES.today;
+const tomorrow = HIGH_TEMPERATURES.tomorrow;
+
+// Only change code above this line
+**** solution
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+// Only change code below this line
+
+const { today, tomorrow } = HIGH_TEMPERATURES; 
+
+// Only change code above this line
+** Use Destructuring Assignment to Assign Variables from Objects
+
+Destructuring allows you to assign a new variable name when extracting values. You can do this by putting the new name after a colon when assigning the value.
+
+For example:
+
+const user = { name: 'John Doe', age: 34 };
+
+Here's how you can give new variable names in the assignment:
+
+const { name: userName, age: userAge } = user;
+
+You may read it as "get the value of user.name and assign it to a new variable named userName" and so on. The value of userName would be the string John Doe, and the value of userAge would be the number 34.
+*** challenge
+Replace the two assignments with an equivalent destructuring assignment. It should still assign the variables highToday and highTomorrow the values of today and tomorrow from the HIGH_TEMPERATURES object.
+
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+// Only change code below this line
+  
+const highToday = HIGH_TEMPERATURES.today;
+const highTomorrow = HIGH_TEMPERATURES.tomorrow; 
+
+// Only change code above this line
+**** solution
+const HIGH_TEMPERATURES = {
+  yesterday: 75,
+  today: 77,
+  tomorrow: 80
+};
+
+// Only change code below this line
+
+const {today:highToday, tomorrow:highTomorrow }   = HIGH_TEMPERATURES;
+
+// Only change code above this line
+
+
+
+** Use Destructuring Assignment to Assign Variables from Nested Objects
+
+You can use the same principles from the previous two lessons to destructure values from nested objects.
+
+Using an object similar to previous examples:
+
+const user = {
+  johnDoe: { 
+    age: 34,
+    email: 'johnDoe@freeCodeCamp.com'
+  }
+};
+
+Here's how to extract the values of object properties and assign them to variables with the same name:
+
+const { johnDoe: { age, email }} = user;
+
+And here's how you can assign an object properties' values to variables with different names:
+
+const { johnDoe: { age: userAge, email: userEmail }} = user;
+*** challenge
+
+Replace the two assignments with an equivalent destructuring assignment. It should still assign the variables lowToday and highToday the values of today.low and today.high from the LOCAL_FORECAST object.
+
+const LOCAL_FORECAST = {
+  yesterday: { low: 61, high: 75 },
+  today: { low: 64, high: 77 },
+  tomorrow: { low: 68, high: 80 }
+};
+
+// Only change code below this line
+  
+const lowToday = LOCAL_FORECAST.today.low;
+const highToday = LOCAL_FORECAST.today.high;
+
+// Only change code above this line
+**** solution
+const LOCAL_FORECAST = {
+  yesterday: { low: 61, high: 75 },
+  today: { low: 64, high: 77 },
+  tomorrow: { low: 68, high: 80 }
+};
+
+// Only change code below this line
+  
+const {today:{low:lowToday, high:highToday}} = LOCAL_FORECAST;
+
+// Only change code above this line
+** Use Destructuring Assignment to Assign Variables from Arrays
+
+ES6 makes destructuring arrays as easy as destructuring objects.
+
+One key difference between the spread operator and array destructuring is that the spread operator unpacks all contents of an array into a comma-separated list. Consequently, you cannot pick or choose which elements you want to assign to variables.
+
+Destructuring an array lets us do exactly that:
+
+const [a, b] = [1, 2, 3, 4, 5, 6];
+console.log(a, b);
+
+The console will display the values of a and b as 1, 2.
+
+The variable a is assigned the first value of the array, and b is assigned the second value of the array. We can also access the value at any index in an array with destructuring by using commas to reach the desired index:
+
+const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
+console.log(a, b, c);
+
+The console will display the values of a, b, and c as 1, 2, 5.
+** Use Destructuring Assignment with the Rest Parameter to Reassign Array Elements
+
+In some situations involving array destructuring, we might want to collect the rest of the elements into a separate array.
+
+The result is similar to Array.prototype.slice(), as shown below:
+
+const [a, b, ...arr] = [1, 2, 3, 4, 5, 7];
+console.log(a, b);
+console.log(arr);
+
+The console would display the values 1, 2 and [3, 4, 5, 7].
+
+Variables a and b take the first and second values from the array. After that, because of the rest parameter's presence, arr gets the rest of the values in the form of an array. The rest element only works correctly as the last variable in the list. As in, you cannot use the rest parameter to catch a subarray that leaves out the last element of the original array.
+*** challenge
+Use destructuring assignment with the rest parameter to perform an effective Array.prototype.slice() so that arr is a sub-array of the original array source with the first two elements omitted.
+
+const source = [1,2,3,4,5,6,7,8,9,10];
+function removeFirstTwo(list) {
+  // Only change code below this line
+  const arr = list; // Change this line
+  // Only change code above this line
+  return arr;
+}
+const arr = removeFirstTwo(source);
+**** solution
+const source = [1,2,3,4,5,6,7,8,9,10];
+function removeFirstTwo(list) {
+  // Only change code below this line
+  const [a,b,...arr] = list; // Change this line
+  // Only change code above this line
+  return arr;
+}
+const arr = removeFirstTwo(source);
+** Use Destructuring Assignment to Pass an Object as a Function's Parameters
+
+In some cases, you can destructure the object in a function argument itself.
+
+Consider the code below:
+
+const profileUpdate = (profileData) => {
+  const { name, age, nationality, location } = profileData;
+
+}
+
+This effectively destructures the object sent into the function. This can also be done in-place:
+
+const profileUpdate = ({ name, age, nationality, location }) => {
+
+}
+
+When profileData is passed to the above function, the values are destructured from the function parameter for use within the function.
+(Obs: ver dentro de challenge o tópico: **** solution with destructuring  (VER ESSE - IMPORTANTE))
+*** challenge
+Use destructuring assignment within the argument to the function half to send only max and min inside the function.
+
+const stats = {
+  max: 56.78,
+  standard_deviation: 4.34,
+  median: 34.54,
+  mode: 23.87,
+  min: -0.75,
+  average: 35.85
+};
+
+// Only change code below this line
+const half = (stats) => (stats.max + stats.min) / 2.0; 
+// Only change code above this line
+**** solution without destructuring
+const stats = {
+  max: 56.78,
+  standard_deviation: 4.34,
+  median: 34.54,
+  mode: 23.87,
+  min: -0.75,
+  average: 35.85
+};
+
+// Only change code below this line
+const half = (stats) => { const { max, standard_deviation, median, mode, min, average } = stats;
+return (max + min) / 2.0;
+}
+// Only change code above this line
+console.log(half(stats));
+
+**** solution with destructuring  (VER ESSE - IMPORTANTE)
+const stats = {
+  max: 56.78,
+  standard_deviation: 4.34,
+  median: 34.54,
+  mode: 23.87,
+  min: -0.75,
+  average: 35.85
+};
+
+// Only change code below this line
+const half = (stats) => { const { max, standard_deviation, median, mode, min, average } = stats;
+return (max + min) / 2.0;
+}
+// Only change code above this line
+console.log(half(stats));
+const stats = {
+  max: 56.78,
+  standard_deviation: 4.34,
+  median: 34.54,
+  mode: 23.87,
+  min: -0.75,
+  average: 35.85
+};
+
+// Only change code below this line
+
+const half = ({ max, min }) => {return (max + min) / 2.0; }
+
+// Only change code above this line
+console.log(half(stats));
+* do...while loops
+Iterate with JavaScript Do...While Loops
+
+The next type of loop you will learn is called a do...while loop. It is called a do...while loop because it will first do one pass of the code inside the loop no matter what, and then continue to run the loop while the specified condition evaluates to true.
+
+const ourArray = [];
+let i = 0;
+
+do {
+  ourArray.push(i);
+  i++;
+} while (i < 5);
+
+The example above behaves similar to other types of loops, and the resulting array will look like [0, 1, 2, 3, 4]. However, what makes the do...while different from other loops is how it behaves when the condition fails on the first check. Let's see this in action. Here is a regular while loop that will run the code in the loop as long as i < 5:
+
+const ourArray = []; 
+let i = 5;
+
+while (i < 5) {
+  ourArray.push(i);
+  i++;
+}
+
+In this example, we initialize the value of ourArray to an empty array and the value of i to 5. When we execute the while loop, the condition evaluates to false because i is not less than 5, so we do not execute the code inside the loop. The result is that ourArray will end up with no values added to it, and it will still look like [] when all of the code in the example above has completed running. Now, take a look at a do...while loop:
+
+const ourArray = []; 
+let i = 5;
+
+do {
+  ourArray.push(i);
+  i++;
+} while (i < 5);
+
+In this case, we initialize the value of i to 5, just like we did with the while loop. When we get to the next line, there is no condition to evaluate, so we go to the code inside the curly braces and execute it. We will add a single element to the array and then increment i before we get to the condition check. When we finally evaluate the condition i < 5 on the last line, we see that i is now 6, which fails the conditional check, so we exit the loop and are done. At the end of the above example, the value of ourArray is [5]. Essentially, a do...while loop ensures that the code inside the loop will run at least once. Let's try getting a do...while loop to work by pushing values to an array.
+* Gerar números aleatórios
+** Generate Random Fractions with JavaScript
+
+Random numbers are useful for creating random behavior.
+
+JavaScript has a Math.random() function that generates a random decimal number between 0 (inclusive) and 1 (exclusive). Thus Math.random() can return a 0 but never return a 1.
+
+Note: Like Storing Values with the Assignment Operator, all function calls will be resolved before the return executes, so we can return the value of the Math.random() function.
+
+Change randomFraction to return a random number instead of returning 0.
+** Generate Random Whole Numbers with JavaScript
+
+It's great that we can generate random decimal numbers, but it's even more useful if we use it to generate random whole numbers.
+
+    Use Math.random() to generate a random decimal.
+    Multiply that random decimal by 20.
+    Use another function, Math.floor() to round the number down to its nearest whole number.
+
+Remember that Math.random() can never quite return a 1 and, because we're rounding down, it's impossible to actually get 20. This technique will give us a whole number between 0 and 19.
+
+Putting everything together, this is what our code looks like:
+
+Math.floor(Math.random() * 20);
+
+We are calling Math.random(), multiplying the result by 20, then passing the value to Math.floor() function to round the value down to the nearest whole number.
+
+** Generate Random Whole Numbers within a Range
+
+Instead of generating a random whole number between zero and a given number like we did before, we can generate a random whole number that falls within a range of two specific numbers.
+
+To do this, we'll define a minimum number min and a maximum number max.
+
+Here's the formula we'll use. Take a moment to read it and try to understand what this code is doing:
+
+Math.floor(Math.random() * (max - min + 1)) + min
+
+* parseInt()
+The parseInt() function parses a string and returns an integer. Here's an example:
+
+const a = parseInt("007");
+
+The above function converts the string 007 to the integer 7. If the first character in the string can't be converted into a number, then it returns NaN.
+** Use the parseInt Function with a Radix
+
+The parseInt() function parses a string and returns an integer. It takes a second argument for the radix, which specifies the base of the number in the string. The radix can be an integer between 2 and 36.
+
+The function call looks like:
+
+parseInt(string, radix);
+
+And here's an example:
+
+const a = parseInt("11", 2);
+
+The radix variable says that 11 is in the binary system, or base 2. This example converts the string 11 to an integer 3.
+* others
+** Use class Syntax to Define a Constructor Function
+
+ES6 provides a new syntax to create objects, using the class keyword.
+
+It should be noted that the class syntax is just syntax, and not a full-fledged class-based implementation of an object-oriented paradigm, unlike in languages such as Java, Python, Ruby, etc.
+
+In ES5, an object can be created by defining a constructor function and using the new keyword to instantiate the object.
+
+In ES6, a class declaration has a constructor method that is invoked with the new keyword. If the constructor method is not explicitly defined, then it is implicitly defined with no arguments.
+
+// Explicit constructor
+class SpaceShuttle {
+  constructor(targetPlanet) {
+    this.targetPlanet = targetPlanet;
+  }
+  takeOff() {
+    console.log("To " + this.targetPlanet + "!");
+  }
+}
+
+// Implicit constructor 
+class Rocket {
+  launch() {
+    console.log("To the moon!");
+  }
+}
+
+const zeus = new SpaceShuttle('Jupiter');
+// prints To Jupiter! in console
+zeus.takeOff();
+
+const atlas = new Rocket();
+// prints To the moon! in console
+atlas.launch();
+
+It should be noted that the class keyword declares a new function, to which a constructor is added. This constructor is invoked when new is called to create a new object.
+
+Note: UpperCamelCase should be used by convention for ES6 class names, as in SpaceShuttle used above.
+
+The constructor method is a special method for creating and initializing an object created with a class. You will learn more about it in the Object Oriented Programming section of the JavaScript Algorithms And Data Structures Certification.
+*** challenge
+Use the class keyword and write a constructor to create the Vegetable class.
+
+The Vegetable class allows you to create a vegetable object with a property name that gets passed to the constructor.
+
+// Only change code below this line
+
+// Only change code above this line
+
+const carrot = new Vegetable('carrot');
+console.log(carrot.name); // Should display 'carrot'
+**** solution
+// Only change code below this line
+class Vegetable {
+  constructor(name) {
+    this.name = name;
+  }
+}
+// Only change code above this line
+
+const carrot = new Vegetable('carrot');
+console.log(carrot.name); // Should display 'carrot'
+** Use getters and setters to Control Access to an Object
+
+You can obtain values from an object and set the value of a property within an object.
+
+These are classically called getters and setters.
+
+Getter functions are meant to simply return (get) the value of an object's private variable to the user without the user directly accessing the private variable.
+
+Setter functions are meant to modify (set) the value of an object's private variable based on the value passed into the setter function. This change could involve calculations, or even overwriting the previous value completely.
+
+class Book {
+  constructor(author) {
+    this._author = author;
+  }
+  // getter
+  get writer() {
+    return this._author;
+  }
+  // setter
+  set writer(updatedAuthor) {
+    this._author = updatedAuthor;
+  }
+}
+const novel = new Book('anonymous');
+console.log(novel.writer);
+novel.writer = 'newAuthor';
+console.log(novel.writer);
+
+The console would display the strings anonymous and newAuthor.
+
+Notice the syntax used to invoke the getter and setter. They do not even look like functions. Getters and setters are important because they hide internal implementation details.
+
+Note: It is convention to precede the name of a private variable with an underscore (_). However, the practice itself does not make a variable private.
+*** challenge
+Use the class keyword to create a Thermostat class. The constructor accepts a Fahrenheit temperature.
+
+In the class, create a getter to obtain the temperature in Celsius and a setter to set the temperature in Celsius.
+
+Remember that C = 5/9 * (F - 32) and F = C * 9.0 / 5 + 32, where F is the value of temperature in Fahrenheit, and C is the value of the same temperature in Celsius.
+
+Note: When you implement this, you will track the temperature inside the class in one scale, either Fahrenheit or Celsius.
+
+This is the power of a getter and a setter. You are creating an API for another user, who can get the correct result regardless of which one you track.
+
+In other words, you are abstracting implementation details from the user.
+
+**** Initial code
+// Only change code below this line
+
+// Only change code above this line
+
+const thermos = new Thermostat(76); // Setting in Fahrenheit scale
+let temp = thermos.temperature; // 24.44 in Celsius
+thermos.temperature = 26;
+temp = thermos.temperature; // 26 in Celsius
+
+
+
+**** solution
+
+// Only change code below this line
+class Thermostat {
+ constructor(F) {
+    this._F = F;
+    this._temperature = 5/9 * (this._F - 32);
+  }
+
+  get temperature() {
+    return this._temperature;
+  }
+
+  set temperature(temperature) {
+    this._temperature = temperature;
+  }
+}
+// Only change code above this line
+
+const thermos = new Thermostat(76); // Setting in Fahrenheit scale
+let temp = thermos.temperature; // 24.44 in Celsius
+thermos.temperature = 26;
+temp = thermos.temperature; // 26 in Celsius
+** Modules
+Create a Module Script
+
+JavaScript started with a small role to play on an otherwise mostly HTML web. Today, it’s huge, and some websites are built almost entirely with JavaScript. In order to make JavaScript more modular, clean, and maintainable; ES6 introduced a way to easily share code among JavaScript files. This involves exporting parts of a file for use in one or more other files, and importing the parts you need, where you need them. In order to take advantage of this functionality, you need to create a script in your HTML document with a type of module. Here’s an example:
+
+<script type="module" src="filename.js"></script>
+
+A script that uses this module type can now use the import and export features 
+** Exporting and Importing
+*** Export
+The above is a common way to export a single function, but you can achieve the same thing like this:
+
+const add = (x, y) => {
+  return x + y;
+}
+
+export { add };
+
+When you export a variable or function, you can import it in another file and use it without having to rewrite the code. You can export multiple things by repeating the first example for each thing you want to export, or by placing them all in the export statement of the second example, like this:
+
+export { add, subtract };
+*** Import
+Reuse JavaScript Code Using import
+
+import allows you to choose which parts of a file or module to load. In the previous lesson, the examples exported add from the math_functions.js file. Here's how you can import it to use in another file:
+
+import { add } from './math_functions.js';
+
+Here, import will find add in math_functions.js, import just that function for you to use, and ignore the rest. The ./ tells the import to look for the math_functions.js file in the same folder as the current file. The relative file path (./) and file extension (.js) are required when using import in this way.
+
+You can import more than one item from the file by adding them in the import statement like this:
+
+import { add, subtract } from './math_functions.js';
+*** Use * to Import Everything from a File
+
+Suppose you have a file and you wish to import all of its contents into the current file. This can be done with the import * as syntax. Here's an example where the contents of a file named math_functions.js are imported into a file in the same directory:
+
+import * as myMathModule from "./math_functions.js";
+
+The above import statement will create an object called myMathModule. This is just a variable name, you can name it anything. The object will contain all of the exports from math_functions.js in it, so you can access the functions like you would any other object property. Here's how you can use the add and subtract functions that were imported:
+
+myMathModule.add(2,3);
+myMathModule.subtract(5,3);
+
+
+*** Create an Export Fallback with export default
+
+In the export lesson, you learned about the syntax referred to as a named export. This allowed you to make multiple functions and variables available for use in other files.
+
+There is another export syntax you need to know, known as export default. Usually you will use this syntax if only one value is being exported from a file. It is also used to create a fallback value for a file or module.
+
+Below are examples using export default:
+
+export default function add(x, y) {
+  return x + y;
+}
+
+export default function(x, y) {
+  return x + y;
+}
+
+The first is a named function, and the second is an anonymous function.
+
+Since export default is used to declare a fallback value for a module or file, you can only have one value be a default export in each module or file. Additionally, you cannot use export default with var, let, or const
+
+*** Import a Default Export
+
+In the last challenge, you learned about export default and its uses. To import a default export, you need to use a different import syntax. In the following example, add is the default export of the math_functions.js file. Here is how to import it:
+
+import add from "./math_functions.js";
+
+The syntax differs in one key place. The imported value, add, is not surrounded by curly braces ({}). add here is simply a variable name for whatever the default export of the math_functions.js file is. You can use any name here when importing a default.
+
+** Promise
+*** Create a JavaScript Promise
+
+A promise in JavaScript is exactly what it sounds like - you use it to make a promise to do something, usually asynchronously. When the task completes, you either fulfill your promise or fail to do so. Promise is a constructor function, so you need to use the new keyword to create one. It takes a function, as its argument, with two parameters - resolve and reject. These are methods used to determine the outcome of the promise. The syntax looks like this:
+
+const myPromise = new Promise((resolve, reject) => {
+
+});
+*** Complete a Promise with resolve and reject
+
+A promise has three states: pending, fulfilled, and rejected. The promise you created in the last challenge is forever stuck in the pending state because you did not add a way to complete the promise. The resolve and reject parameters given to the promise argument are used to do this. resolve is used when you want your promise to succeed, and reject is used when you want it to fail. These are methods that take an argument, as seen below.
+
+const myPromise = new Promise((resolve, reject) => {
+  if(condition here) {
+    resolve("Promise was fulfilled");
+  } else {
+    reject("Promise was rejected");
+  }
+});
+
+The example above uses strings for the argument of these functions, but it can really be anything. Often, it might be an object, that you would use data from, to put on your website or elsewhere.
+*** Handle a Fulfilled Promise with then
+
+Promises are most useful when you have a process that takes an unknown amount of time in your code (i.e. something asynchronous), often a server request. When you make a server request it takes some amount of time, and after it completes you usually want to do something with the response from the server. This can be achieved by using the then method. The then method is executed immediately after your promise is fulfilled with resolve. Here’s an example:
+
+myPromise.then(result => {
+  
+});
+
+result comes from the argument given to the resolve method.
+**** challenge
+Add the then method to your promise. Use result as the parameter of its callback function and log result to the console.
+
+  // responseFromServer is set to true to represent a successful response from a server
+  let responseFromServer = true;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+***** solutionconst makeServerRequest = new Promise((resolve, reject) => {
+  // responseFromServer is set to true to represent a successful response from a server
+  let responseFromServer = true;
+    
+  if(responseFromServer) {
+    resolve("We got the data");
+  } else {  
+    reject("Data not received");
+  }
+});
+
+makeServerRequest.then(result => {
+  console.log(result);
+})
+
+*** Handle a Rejected Promise with catch
+
+catch is the method used when your promise has been rejected. It is executed immediately after a promise's reject method is called. Here’s the syntax:
+
+myPromise.catch(error => {
+  
+});
+
+error is the argument passed in to the reject method.
+* OO
+** Create a Basic JavaScript Object
+
+Think about things people see every day, like cars, shops, and birds. These are all objects: tangible things people can observe and interact with.
+
+What are some qualities of these objects? A car has wheels. Shops sell items. Birds have wings.
+
+These qualities, or properties, define what makes up an object. Note that similar objects share the same properties, but may have different values for those properties. For example, all cars have wheels, but not all cars have the same number of wheels.
+
+Objects in JavaScript are used to model real-world objects, giving them properties and behavior just like their real-world counterparts. Here's an example using these concepts to create a duck object:
+
+let duck = {
+  name: "Aflac",
+  numLegs: 2
+};
+
+This duck object has two property/value pairs: a name of Aflac and a numLegs of 2.
+
+** Create a Method on an Object
+
+Objects can have a special type of property, called a method.
+
+Methods are properties that are functions. This adds different behavior to an object. Here is the duck example with a method:
+
+let duck = {
+  name: "Aflac",
+  numLegs: 2,
+  sayName: function() {return "The name of this duck is " + duck.name + ".";}
+};
+duck.sayName();
+
+The example adds the sayName method, which is a function that returns a sentence giving the name of the duck. Notice that the method accessed the name property in the return statement using duck.name.
+** Make Code More Reusable with the this Keyword
+
+The last challenge introduced a method to the duck object. It used duck.name dot notation to access the value for the name property within the return statement:
+
+sayName: function() {return "The name of this duck is " + duck.name + ".";}
+
+While this is a valid way to access the object's property, there is a pitfall here. If the variable name changes, any code referencing the original name would need to be updated as well. In a short object definition, it isn't a problem, but if an object has many references to its properties there is a greater chance for error.
+
+A way to avoid these issues is with the "this" keyword:
+
+let duck = {
+  name: "Aflac",
+  numLegs: 2,
+  sayName: function() {return "The name of this duck is " + this.name + ".";}
+};
+
+"this" is a deep topic, and the above example is only one way to use it. In the current context, this refers to the object that the method is associated with: duck. If the object's name is changed to mallard, it is not necessary to find all the references to duck in the code. It makes the code reusable and easier to read.
+** Constructor Function
+
+Constructors are functions that create new objects. They define properties and behaviors that will belong to the new object. Think of them as a blueprint for the creation of new objects.
+
+Here is an example of a constructor:
+
+function Bird() {
+  this.name = "Albert";
+  this.color = "blue";
+  this.numLegs = 2;
+}
+
+This constructor defines a Bird object with properties name, color, and numLegs set to Albert, blue, and 2, respectively. Constructors follow a few conventions:
+
+    Constructors are defined with a capitalized name to distinguish them from other functions that are not constructors.
+    Constructors use the keyword this to set properties of the object they will create. Inside the constructor, this refers to the new object it will create.
+    Constructors define properties and behaviors instead of returning a value as other functions might.
+
+*** Use a Constructor to Create Objects
+
+Here's the Bird constructor from the previous challenge:
+
+function Bird() {
+  this.name = "Albert";
+  this.color  = "blue";
+  this.numLegs = 2;
+}
+
+let blueBird = new Bird();
+
+NOTE: this inside the constructor always refers to the object being created.
+
+Notice that the new operator is used when calling a constructor. This tells JavaScript to create a new instance of Bird called blueBird. Without the new operator, this inside the constructor would not point to the newly created object, giving unexpected results. Now blueBird has all the properties defined inside the Bird constructor:
+
+blueBird.name;
+blueBird.color;
+blueBird.numLegs;
+
+Just like any other object, its properties can be accessed and modified:
+
+blueBird.name = 'Elvira';
+blueBird.name;
+
+*** Extend Constructors to Receive Arguments
+
+The Bird and Dog constructors from the last challenge worked well. However, notice that all Birds that are created with the Bird constructor are automatically named Albert, are blue in color, and have two legs. What if you want birds with different values for name and color? It's possible to change the properties of each bird manually but that would be a lot of work:
+
+let swan = new Bird();
+swan.name = "Carlos";
+swan.color = "white";
+
+Suppose you were writing a program to keep track of hundreds or even thousands of different birds in an aviary. It would take a lot of time to create all the birds, then change the properties to different values for every one. To more easily create different Bird objects, you can design your Bird constructor to accept parameters:
+
+function Bird(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 2;
+}
+
+Then pass in the values as arguments to define each unique bird into the Bird constructor: let cardinal = new Bird("Bruce", "red"); This gives a new instance of Bird with name and color properties set to Bruce and red, respectively. The numLegs property is still set to 2. The cardinal has these properties:
+
+cardinal.name
+cardinal.color
+cardinal.numLegs
+
+The constructor is more flexible. It's now possible to define the properties for each Bird at the time it is created, which is one way that JavaScript constructors are so useful. They group objects together based on shared characteristics and behavior and define a blueprint that automates their creation.
+*** Verify an Object's Constructor with instanceof
+
+Anytime a constructor function creates a new object, that object is said to be an instance of its constructor. JavaScript gives a convenient way to verify this with the instanceof operator. instanceof allows you to compare an object to a constructor, returning true or false based on whether or not that object was created with the constructor. Here's an example:
+
+let Bird = function(name, color) {
+  this.name = name;
+  this.color = color;
+  this.numLegs = 2;
+}
+
+let crow = new Bird("Alexis", "black");
+
+crow instanceof Bird;
+
+This instanceof method would return true.
+
+If an object is created without using a constructor, instanceof will verify that it is not an instance of that constructor:
+
+let canary = {
+  name: "Mildred",
+  color: "Yellow",
+  numLegs: 2
+};
+
+canary instanceof Bird;
+
+This instanceof method would return false.
+** Properties (Own and Prototype)
+*** Own Properties
+Understand Own Properties
+
+In the following example, the Bird constructor defines two properties: name and numLegs:
+
+function Bird(name) {
+  this.name = name;
+  this.numLegs = 2;
+}
+
+let duck = new Bird("Donald");
+let canary = new Bird("Tweety");
+
+name and numLegs are called own properties, because they are defined directly on the instance object. That means that duck and canary each has its own separate copy of these properties. In fact every instance of Bird will have its own copy of these properties. The following code adds all of the own properties of duck to the array ownProps:
+
+let ownProps = [];
+
+for (let property in duck) {
+  if(duck.hasOwnProperty(property)) {
+    ownProps.push(property);
+  }
+}
+
+console.log(ownProps);
+
+The console would display the value ["name", "numLegs"].
+*** Prototype Properties
+
+Use Prototype Properties to Reduce Duplicate Code
+
+Since numLegs will probably have the same value for all instances of Bird, you essentially have a duplicated variable numLegs inside each Bird instance.
+
+This may not be an issue when there are only two instances, but imagine if there are millions of instances. That would be a lot of duplicated variables.
+
+A better way is to use the prototype of Bird. Properties in the prototype are shared among ALL instances of Bird. Here's how to add numLegs to the Bird prototype:
+
+Bird.prototype.numLegs = 2;
+
+Now all instances of Bird have the numLegs property.
+
+console.log(duck.numLegs);
+console.log(canary.numLegs);
+
+Since all instances automatically have the properties on the prototype, think of a prototype as a "recipe" for creating objects. Note that the prototype for duck and canary is part of the Bird constructor as Bird.prototype. Nearly every object in JavaScript has a prototype property which is part of the constructor function that created it.
+*** Iterate Over All Properties
+
+You have now seen two kinds of properties: own properties and prototype properties. Own properties are defined directly on the object instance itself. And prototype properties are defined on the prototype.
+
+function Bird(name) {
+  this.name = name;  //own property
+}
+
+Bird.prototype.numLegs = 2; // prototype property
+
+let duck = new Bird("Donald");
+
+Here is how you add duck's own properties to the array ownProps and prototype properties to the array prototypeProps:
+
+let ownProps = [];
+let prototypeProps = [];
+
+for (let property in duck) {
+  if(duck.hasOwnProperty(property)) {
+    ownProps.push(property);
+  } else {
+    prototypeProps.push(property);
+  }
+}
+
+console.log(ownProps);
+console.log(prototypeProps);
+
+console.log(ownProps) would display ["name"] in the console, and console.log(prototypeProps) would display ["numLegs"].
+*** Understand the Constructor Property
+
+There is a special constructor property located on the object instances duck and beagle that were created in the previous challenges:
+
+let duck = new Bird();
+let beagle = new Dog();
+
+console.log(duck.constructor === Bird); 
+console.log(beagle.constructor === Dog);
+
+Both of these console.log calls would display true in the console.
+
+Note that the constructor property is a reference to the constructor function that created the instance. The advantage of the constructor property is that it's possible to check for this property to find out what kind of object it is. Here's an example of how this could be used:
+
+function joinBirdFraternity(candidate) {
+  if (candidate.constructor === Bird) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+Note: Since the constructor property can be overwritten (which will be covered in the next two challenges) it’s generally better to use the instanceof method to check the type of an object.
+*** Change the Prototype to a New Object
+
+Up until now you have been adding properties to the prototype individually:
+
+Bird.prototype.numLegs = 2;
+
+This becomes tedious after more than a few properties.
+
+Bird.prototype.eat = function() {
+  console.log("nom nom nom");
+}
+
+Bird.prototype.describe = function() {
+  console.log("My name is " + this.name);
+}
+
+A more efficient way is to set the prototype to a new object that already contains the properties. This way, the properties are added all at once:
+
+Bird.prototype = {
+  numLegs: 2, 
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+*** Remember to Set the Constructor Property when Changing the Prototype
+
+There is one crucial side effect of manually setting the prototype to a new object. It erases the constructor property! This property can be used to check which constructor function created the instance, but since the property has been overwritten, it now gives false results:
+
+duck.constructor === Bird;
+duck.constructor === Object;
+duck instanceof Bird;
+
+In order, these expressions would evaluate to false, true, and true.
+
+To fix this, whenever a prototype is manually set to a new object, remember to define the constructor property:
+
+Bird.prototype = {
+  constructor: Bird,
+  numLegs: 2,
+  eat: function() {
+    console.log("nom nom nom");
+  },
+  describe: function() {
+    console.log("My name is " + this.name); 
+  }
+};
+
+
+*** Understand Where an Object’s Prototype Comes From
+
+Just like people inherit genes from their parents, an object inherits its prototype directly from the constructor function that created it. For example, here the Bird constructor creates the duck object:
+
+function Bird(name) {
+  this.name = name;
+}
+
+let duck = new Bird("Donald");
+
+duck inherits its prototype from the Bird constructor function. You can show this relationship with the isPrototypeOf method:
+
+Bird.prototype.isPrototypeOf(duck);
+
+This would return true.
+
+*** Understand the Prototype Chain
+
+All objects in JavaScript (with a few exceptions) have a prototype. Also, an object’s prototype itself is an object.
+
+function Bird(name) {
+  this.name = name;
+}
+
+typeof Bird.prototype;
+
+Because a prototype is an object, a prototype can have its own prototype! In this case, the prototype of Bird.prototype is Object.prototype:
+
+Object.prototype.isPrototypeOf(Bird.prototype);
+
+How is this useful? You may recall the hasOwnProperty method from a previous challenge:
+
+let duck = new Bird("Donald");
+duck.hasOwnProperty("name");
+
+The hasOwnProperty method is defined in Object.prototype, which can be accessed by Bird.prototype, which can then be accessed by duck. This is an example of the prototype chain. In this prototype chain, Bird is the supertype for duck, while duck is the subtype. Object is a supertype for both Bird and duck. Object is a supertype for all objects in JavaScript. Therefore, any object can use the hasOwnProperty method.
+
+** Inheritance
+*** Use Inheritance So You Don't Repeat Yourself
+
+There's a principle in programming called Don't Repeat Yourself (DRY). The reason repeated code is a problem is because any change requires fixing code in multiple places. This usually means more work for programmers and more room for errors.
+
+Notice in the example below that the describe method is shared by Bird and Dog:
+
+Bird.prototype = {
+  constructor: Bird,
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+
+Dog.prototype = {
+  constructor: Dog,
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+
+The describe method is repeated in two places. The code can be edited to follow the DRY principle by creating a supertype (or parent) called Animal:
+
+function Animal() { };
+
+Animal.prototype = {
+  constructor: Animal, 
+  describe: function() {
+    console.log("My name is " + this.name);
+  }
+};
+
+Since Animal includes the describe method, you can remove it from Bird and Dog:
+
+Bird.prototype = {
+  constructor: Bird
+};
+
+Dog.prototype = {
+  constructor: Dog
+};
+
+*** Inherit Behaviors from a Supertype
+
+In the previous challenge, you created a supertype called Animal that defined behaviors shared by all animals:
+
+function Animal() { }
+Animal.prototype.eat = function() {
+  console.log("nom nom nom");
+};
+
+This and the next challenge will cover how to reuse the methods of Animal inside Bird and Dog without defining them again. It uses a technique called inheritance. This challenge covers the first step: make an instance of the supertype (or parent). You already know one way to create an instance of Animal using the new operator:
+
+let animal = new Animal();
+
+There are some disadvantages when using this syntax for inheritance, which are too complex for the scope of this challenge. Instead, here's an alternative approach without those disadvantages:
+
+let animal = Object.create(Animal.prototype);
+
+Object.create(obj) creates a new object, and sets obj as the new object's prototype. Recall that the prototype is like the "recipe" for creating an object. By setting the prototype of animal to be the prototype of Animal, you are effectively giving the animal instance the same "recipe" as any other instance of Animal.
+
+animal.eat();
+animal instanceof Animal;
+
+The instanceof method here would return true.
+*** Set the Child's Prototype to an Instance of the Parent
+
+In the previous challenge you saw the first step for inheriting behavior from the supertype (or parent) Animal: making a new instance of Animal.
+
+This challenge covers the next step: set the prototype of the subtype (or child)—in this case, Bird—to be an instance of Animal.
+
+Bird.prototype = Object.create(Animal.prototype);
+
+Remember that the prototype is like the "recipe" for creating an object. In a way, the recipe for Bird now includes all the key "ingredients" from Animal.
+
+let duck = new Bird("Donald");
+duck.eat();
+
+duck inherits all of Animal's properties, including the eat method.
+

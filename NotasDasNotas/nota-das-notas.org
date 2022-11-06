@@ -1,0 +1,996 @@
+Arquivos do "Curso completo de Desenvolvimento Web 2018" da plataforma Udemy - Professor: Jorge Sant Ana
+
+* HTML
+** o que é um atributo
+	Dentro de <HEAD> usamos também <META>, que é para poder usar caracteres especiais na página. Porém essa tag é diferente, essa não abre e depois fecha, mas sim coloca tudo dentro de uma tag só: <meta charset="" /> (o que foi dentro chamad-se de "atributo"). o atributo charset irá identidicar  para nossa página qual os caracteres que iremos utilizar. O "utf-8" é um charset que iremos utilizar para que seja possível escrever acentos, cecidilha, dentre outros caracteres da língua portuguesa. No fim fica como:
+		<meta charset="utf-8" />
+** quebra de linha <br>
+o html não reconhece quebra de linha como \n, não quebra a linha - interpreta como espaço. Para quebra de linha  usa-se <br> (essa tag não precisa abrir e fecha, pode-se escrever também como 
+<br />).
+** links
+(video 19) - links
+
+tag <a> - vem de anchor (âncora), tem abertura e fechamento (</a>)
+usa o atributo: href (hiperlink reference)
+
+para página externa:
+<a href="http://www.capasdistake.com.br/contato.html"> 
+clique aqui 
+</a>
+
+----
+para página interna:
+<a href="produtos.html"> 
+clique aqui2 
+</a>
+** inputs - formulários - componente de entrada: button, text fileld, password field, etc
+(video 22) - Formulários
+tag <form> -  tem abertura e fechamento (</form>)
+---------------------------------
+tag <input>, não tem tag de fechamento... coloca-se então: <input ... /> 
+
+argumento: type="text" , precisa de outro ainda: "name", a partir do qual enviamos o valor preenchido dentro dos campos para algum tratamento, quando apertamos o botão "submit" por exemplo.
+
+	ou
+argumento: type="password" , precisa de outro ainda: "name", a partir do qual enviamos o valor preenchido dentro dos campos para algum tratamento.
+
+	
+	ou
+
+argumento: type="button" , esse argumento precisa de outro argumento "value_que_leva_o_label"
+
+	ou
+
+argumento: type="submit" , esse argumento precisa de outro argumento "value_que_leva_o_label"... ao clicar nesse botão os dados do formulário são enviados para processamento... isso quando é apertado o botão do tipo submit - (ap: com o button não é automático esse envio através da URL). Lembrar que quando for passar a name senha é preciso fazer algo, e não passar ela "seca" (encriptar?).
+
+	ou
+
+argumento: type="radio" , esse argumento precisa de outro argumento "name", que vai incluir no mesmo grupo "names" de mesmo nome
+
+	ou
+
+argumento: type="checkbox"
+
+---------------------------------
+
+tag <select>: permite fazer uma lista de opções da qual selecionamos uma
+dentro dessa tag vai outra tag: <option> (precisa ser fechada depois)
+
+
+---------------------------------
+
+tag <textarea>: permite fazer uma caixa de texto um pouco maior (precisa ser fechada depois)
+
+
+--------
+Para resgatar a ação sobre cada um desses componentes é preciso uma linguagem deprogramação.
+
+--------Exemplo:
+<form>	<h1> Cadastro </h1>
+	Login: <br />
+	<input type="text" name="login"/> <br />
+	Password: <br />
+	<input type="password" name="senha"/> <br />
+
+	<input type="button" value="TextLabelLogin"/> 
+	<input type="submit" value="TextLabelSubmit"/>  
+
+	<br />
+	<input type="radio" name="sexo"/> Masculino<br />
+	<input type="radio" name="sexo"/> Feminino<br />
+	
+	<h2>Interesses</h2>	 
+	<input type="checkbox"> Futebol<br />
+	<input type="checkbox"> Cursos<br />		 
+	<input type="checkbox"> Eletrônicos <br />
+
+	<h3> Estado <h3/>
+	<select>
+		<option>SP</option>
+		<option>PR</option>
+		<option>SC</option>
+		<option>RS</option>
+		<option>RJ</option>
+	</select>
+
+	<br />
+	Observações: <br />
+	<textarea> </textarea>
+	<br />
+ 
+	<input type="button" value="TextLabelCadastrar"/> 
+
+</form>
+usa o atributo: width (em número de pixels)
+
+<table border="1" width="400">  
+tabela
+</table>
+---
+ou:
+<table border="1" width="100%">  
+tabela
+</table>
+
+* CSS
+CSS = Cascading Style Sheets
+** Navegador
+No navegador google chrome há uma opção dentro da extenção "web developer extension", depois dentro de "CSS"->"Disable All Styles" que tira a estilização da página criada pelos arquivos .css.
+Também rodei a ferramenta para o desenvolvedor do chrome e vi que ela é superior à do firefox.
+** Inline style
+O estilo inline pode ser aplicado ao parágrafo (<p>), ao <h1>, <h2>, etc. Consiste em escreve o "style" dentro da própria tag.
+*** exemplo
+<!doctype html>
+<html>
+	<head>
+		<title>JM Viagens - Página principal</title>
+		<meta charset="utf-8" />
+	</head>
+	
+	<body>
+	<p style = "color: red; border: 1px solid red;"> 
+	conteudo formatado com estilo 1... esse é o primeiro parágrafo, blablblablablablabllbabl alsdkf sdlf asdlkjf lkajsd flkj asdlkjfkljasdlkfk asldkjf kla sjdklfj asdkflkd lk
+	</p>
+	
+	<h1 style = "color: blue; border: 5px solid green; font-size: 90px">
+	conteudo formatado copm estilo 2
+	</h1>
+
+	</body>
+</html>
+
+** Seletores
+O estilo inline pode ser aplicado ao parágrafo (<p>), ao <h1>, <h2>, etc. Consiste em escreve o "style" dentro da própria tag.
+vale ressaltar no exemplo abaixo que se ambos os textos usassem iguais atribuitos é conveniente usar o recurso de seletores.
+
+Para deixar mesma formatação para um mesmo grupo de tags (por exemplo, aplicar a mesma formatação para os <p>) nós usamos os seletores. Isso é feito colocando-se a tag "style" dentro do <head>.
+É possível que mesmo usando seletores fazermos styles inline, pois o inline na tag <p> sobrepôs-se ao seletor de estilo "p" definido no <head>.
+
+Vale ressaltar que é bastante útil colocar javascript dentro da tag <style>, apesar de eu não estar fazendo isso aqui.
+*** exemplo
+#+BEGIN_SRC html
+<!doctype html>
+<html>
+	<head>
+		<title>Página a ver com  CSS</title>
+		<meta charset="utf-8" />
+
+		<style type="text/css">
+
+			p {
+				color: green;
+				border: 1px solid blue;
+			}
+
+			h1 {
+				font-size: 80px;
+			}
+
+		</style>
+	</head>
+	
+	<body>
+
+	<h1>
+	conteudo formatado copm estilo cabeçalho
+	</h1>
+
+
+	<p> 
+	conteudo formatado com estilo ... esse é o  parágrafo, blablblablablablabllbabl alsdkf sdlf asdlkjf lkajsd flkj asdlkjfkljasdlkfk asldkjf kla sjdklfj asdkflkd lk
+	</p>
+
+	<p style="color: blue;"> 
+	conteudo formatado com estilo ... esse é o  parágrafo, blablblablablablabllbabl alsdkf sdlf asdlkjf lkajsd flkj asdlkjfkljasdlkfk asldkjf kla sjdklfj asdkflkd lk
+	</p>
+
+	<p> 
+	conteudo formatado com estilo outro ... esse é o primeiro parágrafo, blablblablablablabllbabl alsdkf sdlf asdlkjf lkajsd flkj asdlkjfkljasdlkfk asldkjf kla sjdklfj asdkflkd lk
+	</p>
+
+
+	<p style="color: blue;"> 
+	esse é o 5 parágrafo, blablblablablablabllbabl alsdkf sdlf asdlkjf lkajsd flkj asdlkjfkljasdlkfk asldkjf kla sjdklfj asdkflkd lk
+	</p>
+
+	</body>
+</html>
+#+END_SRC
+	
+** Classes
+No mesmo lugar onde são definidos os seletores (dentro de style em <head>, pode-se definir classes (estas últimas começam com um ponto ".").
+
+Dentro do <BODY> nós especificamos os objetos que terão as propriedades de ".paragrafo". Para isso colocamos, por exemplo:
+
+	<p class="paragrafo"> 
+	conteudo formatado com estilo ... esse é o  parágrafo, blablblablablablabllbabl alsdkf sdlf asdlkjf lkajsd flkj asdlkjfkljasdlkfk asldkjf kla sjdklfj asdkflkd lk
+	</p>
+------------------------
+
+(notar que dentro do atributo class não se coloca o "." que foi usado na definição da classe dentro de <HEAD>)
+
+Uma coisa importante que se conclui, como é visto no código "13-Classe_no_txt_do_13.html" que é possível especificar uma característica (de cor, tamanho, etc) para uma tag, no caso do exemplo para a tag <p>, e dentro de um ou outro objeto (nesse caso de <p>: em um ou outro parágrafo) é possível ser mais específico que se diferencia ele(s) dos demais todos os outros objetos (nesse caso <p>) que levam o estilo especificado pelo estilos seletores do <style>.
+
+resumindo:
+-no seletor eu digo características padrões
+-na classe eu sou mais específico no ditar exceções.
+
+obs: classes não são específicas em relação a objetos, pode usar em qualquer um a mesma classe.
+
+
+*** exemplo:
+	<head>
+		<title>Página a ver com  CSS</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+
+			p {
+				color: green;
+				border: 1px solid blue;
+			}
+
+			.paragrafo {
+				color: red;
+			}
+
+		</style>
+	</head>
+** ID
+No mesmo lugar onde são definidos os seletores e classes (dentro de style em <head>, pode-se definir o ID (estas últimas começam com um ponto "#" (esse caractere chama-se cerquilha)).
+
+Uma coisa importante que se conclui é que é possível especificar uma característica (de cor, tamanho, etc) para uma tag - é possível ser mais específico. Ao contrário do que acontece com o uso de classe, à qual podemos usa-la para se lhe atribuir a vários elementos dentro da página, para a id é conveniente que se lhe atribua a apenas um único elemento por página. Mais a frente será visto que o javascript faz ação sobre um elemento através do intermédio de seu id.
+
+(notar que dentro do atributo ID não se coloca o "#" que foi usado na definição da classe dentro de <HEAD>). Já vimos que acontece o mesmo com a "class" em relação ao ponto (".").
+
+
+obs: os id's não são específicos em relação a objetos, podemos usá-los em qualquer um.
+obs2: usar id mais de uma vez numa mesma página não dá erro, mas convém? a regra diz que não.
+obs3: é possível combinar seletor, classe e id em um único elemento.
+
+*** Exemplo:
+	<head>
+		<title>Página a ver com  CSS</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+
+			p {
+				color: green;
+				border: 1px solid blue;
+			}
+
+			.paragrafo {
+				color: red;
+			}
+
+			#azul {
+				color: blue;
+			}
+		</style>
+	</head>
+-----------------------------
+
+<!-- então dentro do <BODY> nós especificamos os objetos que terão as propriedades de "#azul". Para isso colocamos, por exemplo: -->
+
+	<h1 id="azul"> 
+	Título em azul
+	</p>
+
+
+
+** DIV / SPAN
+*** DIV
+Como o próprio nome diz é usada para DIVidir os conteúdos. Criar elementos em bloco. Cria estruturas no site.
+
+Porém a DIV é um elemento bloco - tem a propriedade da quebra de linha antes e depois do elemento, tem um espaçamento antes e um depois. Obs: não vi nem testei, mas acredito que com o div eu posso usar seletor, classe ou id.
+
+*** SPAN
+O elemento SPAN é um elemento inline, ele fica na mesma linha do texto. É possível ter uma configuração em relação à atributos, sem mudar a estrutura de onde se está trabalhando. Obs: não vi nem testei, mas acredito que com o span eu posso usar seletor, classe ou id.
+
+Span é inline, e inline não permite especificar noções de espaçamento (width, height, ...).
+*** Exemplo
+#+BEGIN_SRC html
+<!doctype html>
+<html>
+<head>
+	<title>JM Viagens - Página principal</title>
+	<meta charset="utf-8" />
+	<style>
+		#menu {
+			background-color: green;
+		}
+
+		#conteudo-principal {
+			background-color: gray;
+		}
+
+		#conteudo-secundario {
+			background-color: blue;
+		}
+
+		#rodape {
+			color: red;
+		}
+		
+		.verde {
+			color: green;
+		}
+	</style>
+</head>
+<body>
+	<div id="menu">
+		Home | Produtos | Contato
+	</div>
+
+	<br />	
+
+	<div id="conteudo-principal">
+		<h5> eis o que acontece se <div id="conteudo-secundario">eu quiser mudar </div> um atributo com outra div - acontece quebra de linha antes e depois do elemento, como pode ser visto com o conteudo "eu quiser mudar" que deixei dentro de uma nova div, além da do deste parágrafo. </h5>
+		<h3> aqui eu continuo com mais texto dentro da div. </h3>
+	
+	</div>
+
+	<br />	
+
+	<div id="rodape">
+		Todos os direito reservados. Se eu usar o span aqui eu consigo especificar <span class="verde"> formatos </span> sem perder estrutura. Eu especifiquei um span para a palavra "formatos".
+	</div>
+
+</body>
+
+</html>
+#+END_SRC
+
+** Links
+*** Exemplo
+#+BEGIN_SRC html
+<!doctype html>
+<html>
+	<head>
+		<title>Links</title>
+		<meta charset="utf-8" />
+		<style type="text/css">
+		   a{ /*Aqui são especificados atributos gerais dos links*/
+				text-decoration: none;/*tira o sublinhado*/
+				padding: 5px;
+		   }
+			
+/*As propriedades de CSS dos links abaixo devem ser especificadas nessa ordem (podendo também serem omitidas nessa ordem.*/
+
+			/*Links não visitados*/
+			a:link{
+				color: #b9c941;
+			}
+
+			/*Links Visitados*/
+			a:visited{
+				color: #c0c0c0;
+			}
+
+			/*Links Hover, passa o cursor sobre o link*/
+			a:hover{
+				color: #FFF;/*Branco*/
+				background: #6d790f;
+			}
+
+			/*Links Ativos, quando clicado*/
+			a:active{
+				color: #e4f371;
+			}
+
+		</style>
+
+	</head>
+
+	<body>
+
+		<a href="https://www.google.com.br">Google</a> |
+		<a href="http://www.tecmundo.com.br">Tec Mundo</a> |
+		<a href="http://www.ydhwr.com.br">YD</a> |
+		<a href="http://www.megacurioso.com.br">Mega Curioso</a>
+
+	</body>
+
+</html>
+#+END_SRC
+
+** Inherit
+	Inherit significa simplesmente que o estilo será herdado do elemento pai. De acordo com a própria W3C o Inherit: Especifica que uma propriedade deve herdar seu valor de seu elemento pai. A palavra inherit pode ser usada para qualquer propriedade CSS, e em qualquer elemento HTML.
+
+*** Exemplo
+span {
+  color: blue;
+}
+
+.extra span {
+  color: inherit;
+}	
+* HTML5
+** Novas Inputs
+<label> antes da <input>:
+---
+<label for="IDnome">Nome</label>
+<input type="text" id="IDnome">
+-------- Ao clicar sobre o texto "Nome" ele vai pra input ser preenchida.
+
+a estrutura é praticamente a mesma, só que no HTML5 tem mais types:
+exemplos:
+<input type="email" id="email">
+<input type="number" id="numero" min="5" max="10" step="2">
+<input type="url" id="url" placeholder="ex: http://www.">
+<input type="search" id="pesquisa" placeholder="ex: digite algo...">
+<input type="range" id="range" min="1" max="10" value="5">
+<input type="date" id="data">
+<input type="color" id="cor">
+----------------------
+obs: o placeholder pode ser usado em todos os campos
+placeholder="exemplo"
+
+a característica "requirer" define campos de preenchimento obrigatórios.
+<input type="email" id="email" placeholder="teste@teste.com.br" required>
+
+a característica "autofocus" define o campo que levará de prontidão o cursor assim que a página for carregada.
+<input type="email" id="email" placeholder="teste@teste.com.br" autofocus>
+
+---------
+o type="search" permite clicar no "x" pra apagar o texto escrito.
+-----------
+para recuperer o valor escolhido em type="range" pode-se usar javascript ou algum código de servidor.
+** Atributos customizados
+Podemos escrever atributos customizados como "meuatributo" abaixo:
+<li class="item" meuatributo="123">Mariana Godoy</li>
+
+Porém, o recomendado é que se utiliza "data-..."
+
+É possível usar quantos atributos customizados se queira. Exemplo:
+<li class="item" data-idade="23" data-altura="177"...>Mariana Godoy</li>
+
+Esamos o atributo customizado para recuperar informação futuramente com o javascript.
+* CSS3
+** Ativação dos estilos mediante declaração de arquivo
+exemplo:
+<link rel="stylesheet" type="text/css" href="33_sombras.css">
+
+** Arquivo css
+No exemplo abaixo, em "#box h1" nós estamos definindo atribus das tags h1 que estão dentro do estilo #box.
+*** Exemplo
+#box{
+	width: 300px;
+	height: 300px;
+	background: url("anexos/camera.png");
+}
+
+#box h1{
+	background: rgb(255,255,255);
+	border-bottom: 2px solid #FFF;
+}
+-----------------
+
+
+
+* Javascript
+** Básico
+Javascript possibilita tratar e aplicar dinâmica aos elementos da página.
+
+html + css = página estática, sem interação com o usuário.
+
+Client-side (executada pelo browser).
+
+----------------------
+Porque deixar o javascript dentro de <head> e não dentro de <body>?
+Porque a seção head é carregada antes da body, antes dos elementos visuais começarem a serem exibidos no browser. Se algum elemento do body executa um código javascript antes da inclusão do código, ele dá erro.
+-------------------------
+*** Comentários:
+//esse é um comentário de uma linha
+
+ou
+
+/* esse é um comentário
+com várias linhas....
+quantas quiser */
+*** Variáveis
+começar variáveis com letras ou underline
+
+javascript é case sensitive. não se pode usar nem cecidilha nem letras acentuadas.
+
+define-se variáveis precendendo os nomes por var:
+
+var curso=123;
+var curso="texto";
+var houveLucro=true;
+(a tipagem é definida pelo valor de atribuição (se é float, string, etc)
+
+em valores fracionados são numeros com "." (e não vírgula ",").
+var numero=1.13;
+
+
+*** Saídas:
+
+	var texto = "Aula de javascript";
+	document.write(texto);
+
+	var saida1 = "Para ver esse texto tem que inspecionar com o browser em modo desenvolvedor";
+	console.log(saida1); /* Para ver esse texto tem que inspecionar com o browser em modo desenvolvedor */
+
+
+*** Concatenação
+
+	var texto = "Aula de javascript";
+	var texto2 = "<br /> <br /> virtual";
+
+	document.write(texto+texto2);
+
+	var nome = prompt("Digite o seu nome:"); //Comando de entrada de dados
+
+	var idade=13;
+
+	
+----------------------
+
+
+*** Exemplo de formatação de documento HTML com javascript
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <title>Titulo</title>
+
+	<script type="text/javascript">
+		aqui fica o código
+	</script>
+
+	<!--<script language="javascript" src="arquivo_javascript.js"></script> -->
+
+  </head>
+  <body>
+
+
+  </body>
+</html>
+** Array
+
+	<script type="text/javascript">
+
+	//Primeira forma de se declarar um array:
+	var lista_de_frutas = Array(); /*Array() tem que começar com "A" maiúsculo*/
+	lista_de_frutas[1]="Maçã";
+	lista_de_frutas[2]="Uva";
+	lista_de_frutas[3]="Banana";
+	lista_de_frutas[4]="Mamão";
+
+	//Segunda forma de se declarar um array:
+	var lista_de_produtos = Array("violao", "guitarra", "piano");
+	//lista_de_produtos[0] vai aparecer "violao"
+	//lista_de_produtos[1] vai aparecer "guitarra" (...)
+
+
+	lista_de_anos = []; /*tb é uma forma de se criar arrays*/
+
+	var matrizColuna = Array(3); /*Cria um array com 3 elementos*/
+	</script>
+
+** Arrays multidimensionais
+	<script type="text/javascript">
+		/* ABAIXO SÃO CRIADOS ARRAYS DE ARRAYS */
+		var lista_de_coisas = Array();
+
+		lista_de_coisas['frutas'] = Array(); /*o texto dentro do [] deve não ter nem acentos, nem "ç", nem caracteres especiais*/
+
+		lista_de_coisas['frutas'][1] = 'Maçã';
+		lista_de_coisas['frutas'][2] = 'Banana';
+		lista_de_coisas['frutas'][3] = 'Morango';
+		
+		document.write(lista_de_coisas['frutas'][2]);
+
+
+		lista_de_coisas['pessoas'] = Array(); 
+		lista_de_coisas['pessoas'][1] = 'João Pedro';
+		lista_de_coisas['pessoas'][2] = 'Luiz Antonio';
+		lista_de_coisas['pessoas'][3] = 'Lucinéia';
+
+		document.write(lista_de_coisas['pessoas'][1]);
+
+
+		lista_de_coisas['pessoas2'] = Array('Pedro', 'Juliana'); 
+
+	</script>
+** If/Else
+*** If
+/*---------------OPERADORES DE COMPARAÇÃO ----------(video 138)-------*/
+
+		if (a==b) { } //igual
+
+		if (a===b) { } //idêntico
+
+		if (a!=b) { } //diferente
+
+		if (a<>b) { } //diferente
+
+		if (a!==b) { } //não idêntico
+		
+		(...)
+
+//---------------IF ELSE: PARTE 1 -----------------(video 139)---------
+
+		if (2 == 2) {} //true
+	
+		if (2 === '2') {} //false
+	
+		if (2 != 1) {} //true
+	
+		if (2 !== 2) {} //são diferentes ou de tipo diferente? R: false
+
+		if (2 !== 5) {} //são diferentes ou de tipo diferente? R: true
+
+		if (2 !== '2') {} //são diferentes ou de tipo diferente? R: true
+
+	
+		if ('y' == 'x') {} //false
+
+*** Else
+		if (condicao2) {
+
+		} if else (condicao3) {
+
+		} if else (condicao4) {
+
+		} else {
+		
+		}
+** Switch
+		var opcao=1;
+		var texto='vamos ver';
+			switch (opcao) {
+				case 1:
+					texto='Op. 1 foi selec.';
+					break;
+					case 2:
+					texto='Op. 2 foi selec.';
+					break;
+				default: //esse default é opcional
+					texto='Op. diferente';
+					break;
+	
+			}
+** Operadores
+*** Exemplo
+**** código javascipt
+		var opcao=1;
+		var texto='vamos ver';
+		var num1=2;
+		var num2=3;
+
+		document.write(texto + '- o valor de num1: '+num1 + ' + num2: ' + num2 + ' é: ' + (num1+num2)); //importante por () no final: (num1+num2), se não ele não soma, mas apenas apresenta na tela.
+
+		document.write('<br /> o incremento pré de num1 (=++num1) é: '+(++num1) + ' - o incremento pós (num2++) é: ' + (num2++) + '   -   agora já tendo incrementado pós num2 = num2++, o  valor atual de num2 é: ' + num2);
+//observar que em num1++ ele só incrementa depois de apresentar  na tela, mesmo que ele seja especificado entre parênteses.
+
+
+**** saída 
+vamos ver- o valor de num1: 2 + num2: 3 é: 5
+o incremento pré de num1 (=++num1) é: 3 - o incremento pós (num2++) é: 3 - agora já tendo incrementado pós num2 = num2++, o valor atual de num2 é: 4
+*** parseInt e parseFloat
+//converte cadeias de caracteres para números:
+//2 maneiras: parseInt e parseFloat
+	var valor1 = prompt('Entre com o 1o número float: ');
+	var valor2 = prompt('Entre com o 2o número float: ');
+
+	var resultado;
+	resultado=parseFloat(valor1)+parseFloat(valor2);
+
+		document.write('<br /> resultado da soma: ' + resultado);
+
+** Funções
+	function calculaArea(largura, comprimento) {
+	 //"largura" e "comprimento" chamam argumentos ou PARÂMETROS
+		var area = largura * comprimento;
+document.write('a: ' + area);
+		return area; //não é obrigatório que uma função retorne uma variável
+	}
+//-------Se eu parasse o código aqui não seria executada a função. Ela só é processada caso elea seja chamada. Obs: a função não tem necessáriamente que aparecer antes de ser chamada, ela pode ser colocada no fim do código.
+
+	document.write('a area de 2x3 = '+ calculaArea(2,3));
+** Eventos com o mouse
+	<script type="text/javascript">
+
+	/* EVENTOS DO MOUSE:
+	onclick
+
+	ondblclick
+
+	onmousedown - quando acionado com o click do mouse, mantendo o botao do mouse pressionado, ou não
+
+	onmouseover
+
+	onmouseout
+	*/
+
+	document.write('esta carregando a página <br />');
+	
+//--------
+	function msgBoasVindas() {
+		document.write('vc clicou com o mouse 2x sobre a area azul <br />');
+	}
+//-------Se eu parasse o código aqui não seria executada a função. Ela só é processada caso elea seja chamada.
+	
+//--------
+
+
+	</script>
+  </head>
+  <body>
+<!--Aqui foi programado o evento onclick sobra a área cinza -->
+	<div onclick="alert('clicou na area cinza')" style="background: #ccc; height: 400px; width: 150px";></div>
+
+<!--Aqui o onclick executa uma função -->
+	<div ondblclick="msgBoasVindas()" style="background: #b1c2d3; height: 300px; width: 150px";></div> 
+
+<!--Aqui foi atribuido mais de um evento ao mesmo objeto-->
+	<div onclick="alert('mais de um evento para esse elemento - vc clicou')" onmouseout="alert('mais de um evento para esse elemento - vc saiu da regiao da area rachurada')" style="background: #d100f3; height: 300px; width: 150px";></div> 
+
+  </body>
+** Eventos com teclado
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <title>Titulo</title>
+
+	<script type="text/javascript">
+
+	/* EVENTOS DO TECLADO:
+	onkeydown (são captura as teclas do teclado (CTRL, ALT, SHIFT tb são capturadas)
+
+	onkeypress (não captura todas as teclas do teclado (CTRL, ALT, SHIFT não são capturadas)
+
+	onkeyup
+
+	*/
+
+	document.write('esta carregando a página <br />');
+	
+//--------
+	function msgDigitou() {
+		document.write('vc clicou apertou uma tecla<br />');
+	}
+//-------Se eu parasse o código aqui não seria executada a função. Ela só é processada caso elea seja chamada.
+	
+//--------
+
+
+	</script>
+  </head>
+  <body>
+	<p>abaixo executa uma função caso seja pressonada uma tecla dentro do campo de texto, qualquer tecla (inclusive SHIFT, ALT, CTRL)</p>
+	<input onkeydown="msgDigitou()" type="text"/>
+	<br />
+
+	<p>abaixo apresenta msg de alerta caso a tecla seja solta (inclusive SHIFT, ALT, CTRL)</p>
+	<input onkeyup="alert('soltou a tecla')" type="text"/>
+	<br />
+
+
+  </body>
+</html>
+
+	 
+** Eventos com janelas 
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <title>Titulo</title>
+
+	<script type="text/javascript">
+
+	/* EVENTOS DAS JANELAS:
+	onload - quando termina o carregamento da página, quando é concluido o download de tudo
+
+	onresize 
+
+	*/
+
+//--------
+	function msgJanelaResize() {
+		document.write('vc redimensionou a janela<br />');
+	}
+//-------Se eu parasse o código aqui não seria executada a função. Ela só é processada caso elea seja chamada.
+	
+//--------
+
+
+	</script>
+  </head>
+  <body onload="alert('A pagina foi totalmente carregada.')" onresize="msgJanelaResize()">
+
+	<p></p>
+	
+	<br />
+
+
+  </body>
+</html>
+
+	 
+** Eventos de formulário
+
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    
+    <title>Titulo</title>
+
+	<script type="text/javascript">
+
+	/* EVENTOS DE FORMULARIOS:
+	onfocus - quando clicamos num elemento
+
+	onblur - quando um elemento perde o foco, quando saimos dele
+
+
+	onchange - acionado quando o estado do elemento é modificado
+
+	*/
+
+//--------
+	function msgFormulario() {
+		document.write('vc redimensionou a janela<br />');
+	}
+//-------Se eu parasse o código aqui não seria executada a função. Ela só é processada caso elea seja chamada.
+	
+//--------
+
+
+	</script>
+  </head>
+  <body>
+	<!-- não há a necessidade de necessáriamente utilizar a tag <form>	</form> para obter eventos de formulário -->
+
+	abaixo processa evento quando o elemento é focado
+	<input onfocus="alert('o elemento foi focado')" type="text">
+	<br />
+
+	abaixo processa evento quando o elemento perde o foco
+	<input onblur="alert('o elemento foi perdeu o foco')" type="text">
+	<br />
+
+	<select onchange="alert('a opcao foi alterada')">
+		<option value="1">Primeira opcao</option>
+		<option value="2">Segunda opcao</option>
+	</select>
+
+  </body>
+</html>
+
+	 
+** DOM
+O que é DOM?
+	Document Object Model
+	API que permite o acesso via javascript aos elementos da página
+
+----------
+O que pode ser feito com a DOM? R: Alguns exemplos: 
+	alterar a cor de fundo de uma div
+	apresentar ou esconder uma tabela
+	imagem pode ser modificada
+
+-----------
+
+Manipulando elementos (node):
+	método document.getElementByID(id)
+
+*** Exemplo de use do DOM (Calculadora)
+<!DOCTYPE HTML>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+
+		<title>Calculadora</title>
+
+		<!-- bootstrap - link cdn -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<script type="text/javascript">
+			function calcular() {
+				var resultado;
+				var  num1=document.getElementById('numero1').value;
+				var  num2=document.getElementById('numero2').value;
+				var operacao=document.getElementById('operacao').value;
+
+	if ((num1 == '')||(num1==null)) {
+		alert('Favor digitar valores');
+		return false;
+}
+
+	if ((num2 == '')||(num2==null)) {
+		alert('Favor digitar valores');
+		return false;
+}
+				switch(operacao) {
+					case '1':
+						resultado = num1-num2;
+						break;
+					case '2':
+						resultado = parseFloat(num1)+parseFloat(num2); //É mais interessante colocar esse parseFloat no começo da função, independente qual operação se use.... deixo aqui para salientar o possível erro de concatenar as strings caso nós não a convertamos em número
+						break;
+					case '3':
+						resultado = num1*num2;
+						break;
+					case '4':
+						resultado = num1/num2;
+						break;
+					default:
+						alert('operacao nao valida');
+						return false;
+						break;
+				}
+
+
+		/*	alert('Opcao selecionada: ' + operacao + '... num1: '+ num1 + '... num2: ' + num2 + ' - resultado: ' +resultado);
+*/
+	document.getElementById('ondeApareceOresultado').value = resultado;
+			}
+
+				
+		</script>
+	</head>
+
+	<body>
+		
+		<div class="container">
+			<div class="jumbotron">
+				<h1>CALCULADORA</h1>
+			</div>
+
+			<hr />
+
+			<div class="row">
+				<div class="col-md-4">
+					<input type="text" class="form-control" placeholder="Digite um número" id="numero1"/>
+				</div>
+
+				<div class="col-md-4">
+					<select class="form-control" id="operacao">
+						<option value="">--Selecione uma operação</option>
+						<option value="1">Subtração</option>
+						<option value="2">Adição</option>
+						<option value="3">Multiplicação</option>
+						<option value="4">Divisão</option>
+					</select>
+				</div>
+
+				<div class="col-md-4">
+					<input type="text" class="form-control" placeholder="Digite um número" id="numero2"/ >
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="row">
+				<div class="col-md-4"></div>
+
+				<div class="col-md-4"></div>
+
+				<div class="col-md-4">
+					<button type="button" class="btn btn-lg btn-primary pull-right" onclick="calcular()">Calcular</button>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="well">
+				Resultado: <input id="ondeApareceOresultado" type="text" class="form-control" readonly />
+			</div>
+		</div>
+	</body>
+</html>
+
